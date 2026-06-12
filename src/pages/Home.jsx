@@ -203,7 +203,7 @@ const Home = () => {
           </header>
 
           {/* Stats */}
-          <div className="w-full my-6 grid grid-cols-1 min-[385px]:grid-cols-2  sm:flex sm:items-center sm:justify-between gap-4">
+          <div className="w-full my-6 grid grid-cols-1 min-[370px]:grid-cols-2  sm:flex sm:items-center sm:justify-between gap-4">
             {stats.map((stat, index) => (
               <div className="flex gap-3 items-center" key={index}>
                 <span className="text-[16px] lg:text-[20px] text-[#eec037] font-semibold">
