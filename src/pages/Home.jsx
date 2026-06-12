@@ -241,10 +241,11 @@ const Home = () => {
                   <img
                     src={project.projectImage}
                     alt={project.projectTitle}
-                    className={`w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 ${selected === project.id ? "scale-110" : ""}`}
+                    className={`w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 ${selected === project.id ? "scale-110" : ""} `}
                   />
                   <div
-                    className={`z-10 absolute top-40% right-0 bottom-0 w-full bg-[#2c2d39]/98 p-4 text-left translate-y-50 transition-all duration-1000 group-hover:translate-y-0 ${selected === project.id ? "translate-y-0" : ""}`}
+                    className={`absolute z-10 right-0 bottom-0 w-full bg-[#2c2d39]/98 p-4 text-left
+      transform transition-transform duration-1000 ease-in-out ${selected === project.id ? "translate-y-0" : "translate-y-full"} group-hover:translate-y-0`}
                   >
 
                     <h5 className="text-[13px] text-white/80 font-medium capitalize leading-4.5">{project.projectTitle}</h5>
