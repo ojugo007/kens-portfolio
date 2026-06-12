@@ -12,6 +12,9 @@ module.exports = {
         primary: "hsl(var(--primary))",
         muted: "hsl(var(--muted))",
       },
+      screens: {
+        xs: "370px",
+      },
     },
   },
   variants: {

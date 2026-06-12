@@ -67,12 +67,12 @@ export const skills = [
 
 export const stats = [
     {
-      value: 10,
+      value: 2,
       label: "Years Experience",
       showPlus: true
     },
     {
-      value: 25,
+      value: 5,
       label: "Completed Projects",
       showPlus: false
     },
@@ -82,7 +82,7 @@ export const stats = [
       showPlus: true
     },
     {
-      value: 5,
+      value: 4,
       label: "Certifications",
       showPlus: false
     },
@@ -154,26 +154,31 @@ export const slides = [
 
 export const projects = [
   {
+    id: 1,
     projectTitle : "Automated CRM + Team Assignment",
     projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
     projectDesc: "Auto-routed leads by region and expertise, cutting response times to under 2 minutes."
   },
   {
+     id: 2,
     projectTitle : "Employee PTO Automation",
     projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
     projectDesc: "Automated leave approvals and calendar updates, reducing HR admin work by 90%."
   },
   {
+     id: 3,
     projectTitle : "Smart Follow-up System",
     projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
     projectDesc: "Triggered personalized outreach from lead activity, increasing reply rates by 40%."
   },
   {
+     id: 4,
     projectTitle : "Telegram Crypto Price Tracker",
     projectImage : " https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
     projectDesc: "Delivered real-time Telegram alerts, eliminating manual chart monitoring."
   },
   {
+     id: 5,
     projectTitle : "AI Email Lead Scoring + Drafting",
     projectImage : " https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
     projectDesc: "Prioritized incoming leads and drafted responses, saving 15+ hours per week."

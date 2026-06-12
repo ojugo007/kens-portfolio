@@ -19,6 +19,7 @@ import ContactForm from "@/components/ContactForm"
 const Home = () => {
   const OPTIONS = { slidesToScroll: 'auto' }
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [selected, setSelected] = useState(null)
 
   const [stackProgress, setStackProgress] = useState({
     "airtable": 0, "n8n": 0, "zapier": 0, "postman": 0
@@ -120,8 +121,8 @@ const Home = () => {
               </div>
               <Separator className="bg-[#383839] my-4" />
 
-              
-               <a href="https://res.cloudinary.com/dw94gbpfs/image/upload/v1781279190/Kenneth_Automation_Resume_ftda8f.pdf?fl_attachment"
+
+              <a href="https://res.cloudinary.com/dw94gbpfs/image/upload/v1781279190/Kenneth_Automation_Resume_ftda8f.pdf?fl_attachment"
                 download={true}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -179,14 +180,14 @@ const Home = () => {
                   pauseTime={2000}
                   className="mt-3 text-[14px] lg:text-[16px] text-white/80 h-8 font-mono"
                 />
-                <div className="mt-3 flex gap-3">
-                  
+                <div className="mt-7 sm:mt-3 flex gap-3">
+
                   <a href="#projects"
                     className="px-4 py-2 bg-[#eec037] w-32 lg:w-37.5 text-[#382400] uppercase text-[11px] font-bold tracking-widest cursor-pointer transition-all duration-600 ease-in-out text-center hover:tracking-wider"
                   >
                     explore now
                   </a>
-                  
+
                   <a href="#contact"
                     className="cursor-pointer text-white/80 text-[12px] tracking-wider uppercase flex items-center gap-1.25 transition-all duration-500 ease-in-out hover:gap-2 hover:text-white/95"
                   >
@@ -202,10 +203,10 @@ const Home = () => {
           </header>
 
           {/* Stats */}
-          <div className="w-full my-6 flex flex-wrap items-center justify-between gap-4">
+          <div className="w-full my-6 grid grid-cols-1 min-[385px]:grid-cols-2  sm:flex sm:items-center sm:justify-between gap-4">
             {stats.map((stat, index) => (
               <div className="flex gap-3 items-center" key={index}>
-                <span className="text-[20px] lg:text-[22px] text-[#eec037] font-semibold">
+                <span className="text-[16px] lg:text-[20px] text-[#eec037] font-semibold">
                   <CountUp isCounting end={stat.value} duration={2} />{stat.showPlus && "+"}
                 </span>
                 <p className="capitalize text-[12px]">{stat.label}</p>
@@ -236,13 +237,16 @@ const Home = () => {
             <h4 className="text-left mb-6">Works</h4>
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
               {projects.map((project, index) => (
-                <div className="overflow-hidden relative transition-all group" key={index}>
+                <div onClick={() => setSelected(project.id)} className="overflow-hidden relative transition-all group cursor-pointer" key={index}>
                   <img
                     src={project.projectImage}
                     alt={project.projectTitle}
-                    className="w-full h-full group-hover:scale-110 transition-all duration-1000 object-cover"
+                    className={`w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 ${selected === project.id ? "scale-110" : ""}`}
                   />
-                  <div className="z-10 absolute top-40% right-0 bottom-0 w-full bg-[#2c2d39]/98 p-4 text-left translate-y-50 group-hover:translate-y-0 transition-all duration-1000">
+                  <div
+                    className={`z-10 absolute top-40% right-0 bottom-0 w-full bg-[#2c2d39]/98 p-4 text-left translate-y-50 transition-all duration-1000 group-hover:translate-y-0 ${selected === project.id ? "translate-y-0" : ""}`}
+                  >
+
                     <h5 className="text-[13px] text-white/80 font-medium capitalize leading-4.5">{project.projectTitle}</h5>
                     <p className="text-[12px] text-[#777779] leading-4.5">{project.projectDesc}</p>
                     <a href={project?.projectUrl} className="cursor-pointer text-[#eec037] text-[10px] tracking-wider uppercase flex items-center gap-1.25 transition-all duration-500 ease-in-out hover:gap-2">
@@ -354,7 +358,7 @@ const Home = () => {
                 <div className="flex items-center justify-between">
                   <p className="text-white/80 font-medium text-[13px]">Phone:</p>
                   <small className="text-[12px] text-[#777779]"><a href="tel:+2349134692716">09134692716
-</a></small>
+                  </a></small>
                 </div>
                 <div className="flex items-center justify-between">
                   <p className="text-white/80 font-medium text-[13px]">Support Line:</p>
@@ -369,7 +373,7 @@ const Home = () => {
             </div>
           </section>
 
-          <footer className="bg-[#2c2d39] flex items-center justify-between px-6 py-2.5">
+          <footer className="bg-[#2c2d39] flex flex-col sm:flex-row items-center justify-between px-6 py-2.5">
             <small className="text-[#777779] hover:text-white transition-all duration-1000 ease-in-out text-[12px]">
               &copy; {new Date().getFullYear()} Kenneth Okoro
             </small>
