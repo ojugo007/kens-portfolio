@@ -195,8 +195,8 @@ export const EDUCATION = [
 export const EXPERIENCE = [
   { company: "Freelance", role: "Automation Consultant", period: "Jan 2025 – Present", desc: "Built automation systems that eliminated repetitive work, saving clients 20+ hours weekly and reducing manual data entry by 80%." },
 
-  { company: "ABC Studio", role: "Front-End Developer", period: "Apr 2018 – Aug 2019", desc: "Collaborate with creative and development teams on the execution of ideas." },
+  { company: "ABC Studio", role: "Front-End Developer", period: "Apr 2025 – Aug 2025", desc: "Collaborate with creative and development teams on the execution of ideas." },
 
-  { company: "Digital Web Studio", role: "Senior Developer", period: "Jan 2017 – May 2018", desc: "Optimize your website and apps performance using latest technology." },
+  { company: "Webfox", role: "Penetration Tester", period: "Jan 2024 – May 2024", desc: "Optimize your website and apps performance using latest technology." },
 
 ];
