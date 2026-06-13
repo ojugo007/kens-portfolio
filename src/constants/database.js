@@ -187,9 +187,9 @@ export const projects = [
 
 
 export const EDUCATION = [
-  { school: "Automation Course", role: "Student", period: "Jan 2016 – Apr 2017", desc: "AI Automation Specialist" },
-  { school: "CyberSecurity Courses", role: "Student", period: "Aug 2014 – Oct 2015", desc: "Junior Cybersecurity Analyst" },
-  { school: "University of Benin", role: "Student", period: "Jan 2018 – May 2020", desc: "BSc. Industrial Physics. Benin, Edo State." },
+  { school: "AI Automation", role: "Student", period: "Jul 2025 – Oct 2025", desc: "AI Automation Specialist" },
+  { school: "CyberSecurity", role: "Student", period: "Mar 2024 – Jun 2024", desc: "Junior Cybersecurity Analyst" },
+  { school: "University of Benin", role: "Student", period: "Dec 2012 – Dec 2016", desc: "BSc. Industrial Physics. Benin, Edo State." },
 ];
 
 export const EXPERIENCE = [
