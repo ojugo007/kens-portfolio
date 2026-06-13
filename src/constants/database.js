@@ -4,7 +4,7 @@ export const services = [
     text: "Streamline repetitive business processes with smart automated workflows that save time, reduce errors, and improve productivity.",
   },
   {
-    title: "CRM Automation",
+    title: "Automated CRM & Team Assignment",
     text: "Automate lead tracking, customer follow-ups, pipeline management, and notifications to improve customer relationships and conversions.",
   },
   {
@@ -16,7 +16,7 @@ export const services = [
     text: "Build scalable no-code and low-code automations with Zapier to connect apps and automate daily tasks effortlessly.",
   },
   {
-    title: "n8n Workflow Solutions",
+    title: "n8n & Make Workflow Solutions",
     text: "Develop flexible and advanced workflow automations with n8n for custom business logic and self-hosted automation systems.",
   },
   {
@@ -195,7 +195,7 @@ export const EDUCATION = [
 export const EXPERIENCE = [
   { company: "Freelance", role: "Automation Consultant", period: "Jan 2025 – Present", desc: "Built automation systems that eliminated repetitive work, saving clients 20+ hours weekly and reducing manual data entry by 80%." },
 
-  { company: "ABC Studio", role: "Front-End Developer", period: "Apr 2025 – Aug 2025", desc: "Collaborate with creative and development teams on the execution of ideas." },
+  { company: "The Christ Anointed Family Chapel", role: "Automation Consultant", period: "Apr 2025 – Aug 2025", desc: "Built automation systems that eliminated repetitive work." },
 
   { company: "Webfox", role: "Penetration Tester", period: "Jan 2024 – May 2024", desc: "Optimize your website and apps performance using latest technology." },
 

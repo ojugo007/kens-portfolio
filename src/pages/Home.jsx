@@ -351,8 +351,8 @@ const Home = () => {
                   <small className="text-[12px] text-[#777779]"><a href="mailto:Kennethokoro280@gmail.com">Kennethokoro280@gmail.com</a></small>
                 </div>
                 <div className="flex items-center justify-between">
-                  <p className="text-white/80 font-medium text-[13px]">Whatsapp:</p>
-                  <small className="text-[12px] text-[#777779]"><a href="/whatsapp.com">08137825383</a></small>
+                  <p className="text-white/80 font-medium text-[13px]">Direct Message:</p>
+                  <small className="text-[12px] text-[#777779]"><a href="https://wa.me/2349134692716">Chat on WhatsApp</a></small>
                 </div>
               </div>
               <div className="rounded-none border-0 shadow-none ring-0 text-left bg-[#2c2d39] px-4 py-6 flex flex-col gap-3">
