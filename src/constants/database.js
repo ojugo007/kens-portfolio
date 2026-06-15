@@ -183,6 +183,12 @@ export const projects = [
     projectImage : " https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
     projectDesc: "Prioritized incoming leads and drafted responses, saving 15+ hours per week."
   },
+  {
+     id: 6,
+    projectTitle : "Automated Employee PTO System for Loubby Ai.",
+    projectImage : " https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
+    projectDesc: "Developed an automated Paid Time Off (PTO) management system for Loubby AI that streamlines leave requests, approvals, and record keeping."
+  },
 ]
 
 
