@@ -156,11 +156,11 @@ export const projects = [
   {
     id: 1,
     projectTitle : "Automated CRM + Team Assignment",
-    projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
+    projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1781798212/Automated%20CRM%20and%20Team%20Assignment%20workflow.jpg",
     projectDesc: "Auto-routed leads by region and expertise, cutting response times to under 2 minutes."
   },
   {
-     id: 2,
+    id: 2,
     projectTitle : "Employee PTO Automation",
     projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
     projectDesc: "Automated leave approvals and calendar updates, reducing HR admin work by 90%."
@@ -174,7 +174,7 @@ export const projects = [
   {
      id: 4,
     projectTitle : "Telegram Crypto Price Tracker",
-    projectImage : " https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
+    projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1781798212/crypto%20price%20telegram%20chatbot%20workflow.jpg",
     projectDesc: "Delivered real-time Telegram alerts, eliminating manual chart monitoring."
   },
   {
