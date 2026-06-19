@@ -189,6 +189,12 @@ export const projects = [
     projectImage : " https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
     projectDesc: "Developed an automated Paid Time Off (PTO) management system for Loubby AI that streamlines leave requests, approvals, and record keeping."
   },
+  {
+     id: 7,
+    projectTitle : "Automated lead-nurturing pipeline.",
+    projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1781875495/Automated%20lead-nurturing%20pipeline.jpg",
+    projectDesc: "Developed a lead-nurturing workflow that automates follow-ups, tracks engagement, and moves prospects through the sales funnel efficiently."
+  },
 ]
 
 

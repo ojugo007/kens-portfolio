@@ -16,6 +16,7 @@ import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
 import ContactForm from "@/components/ContactForm"
 
+
 const Home = () => {
   const OPTIONS = { slidesToScroll: 'auto' }
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -237,7 +238,7 @@ const Home = () => {
             <h4 className="text-left mb-6">Works</h4>
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
               {projects.map((project, index) => (
-                <div onClick={() => setSelected(project.id)} className="overflow-hidden relative transition-all group cursor-pointer" key={index}>
+                <div onClick={() => setSelected(project.id)} className="overflow-hidden relative transition-all group cursor-pointer h-50" key={index}>
                   <img
                     src={project.projectImage}
                     alt={project.projectTitle}
@@ -250,10 +251,11 @@ const Home = () => {
 
                     <h5 className="text-[13px] text-white/80 font-medium capitalize leading-4.5">{project.projectTitle}</h5>
                     <p className="text-[12px] text-[#777779] leading-4.5">{project.projectDesc}</p>
-                    <a href={project?.projectUrl} className="cursor-pointer text-[#eec037] text-[10px] tracking-wider uppercase flex items-center gap-1.25 transition-all duration-500 ease-in-out hover:gap-2">
+                    
+                    {/* <a href={project?.projectUrl} className="cursor-pointer text-[#eec037] text-[10px] tracking-wider uppercase flex items-center gap-1.25 transition-all duration-500 ease-in-out hover:gap-2">
                       <span>View Project</span>
                       <ChevronRight size={13} strokeWidth={4} />
-                    </a>
+                    </a> */}
                   </div>
                 </div>
               ))}
