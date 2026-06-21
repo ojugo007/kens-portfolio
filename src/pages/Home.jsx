@@ -198,7 +198,7 @@ const Home = () => {
                 </div>
               </div>
               <div className="hidden lg:block flex-1">
-                <img src="https://res.cloudinary.com/dw94gbpfs/image/upload/v1780300281/hero_qtodzx.png" alt="hero image" className="w-full" />
+                <img src="https://res.cloudinary.com/dw94gbpfs/image/upload/v1782067215/ken-portrait_hjk2zx.png" alt="hero image" className="w-full" />
               </div>
             </div>
           </header>
