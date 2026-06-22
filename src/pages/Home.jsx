@@ -15,13 +15,14 @@ import EmblaCarousel from '../components/EmblaCarousel'
 import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa"
 import { FaXTwitter } from "react-icons/fa6"
 import ContactForm from "@/components/ContactForm"
+import { NameInnitial } from "@/lib/utils"
 
 
 const Home = () => {
   const OPTIONS = { slidesToScroll: 'auto' }
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [selected, setSelected] = useState(null)
-
+  const fullName = "Kenneth Okoro"
   const [stackProgress, setStackProgress] = useState({
     "airtable": 0, "n8n": 0, "zapier": 0, "postman": 0
   })
@@ -79,11 +80,11 @@ const Home = () => {
             </button>
 
             <Avatar size="lg" className="mx-auto">
-              <AvatarImage src="https://res.cloudinary.com/dw94gbpfs/image/upload/v1779775058/3d-rendering-cartoon-like-business-man_pmnqry.jpg" />
-              <AvatarFallback>KO</AvatarFallback>
+              <AvatarImage src="https://res.cloudinary.com/dw94gbpfs/image/upload/v1782134630/ken-avatar_pk6mzo.jpg" />
+              <AvatarFallback>{NameInnitial(fullName)}</AvatarFallback>
               <AvatarBadge className="bg-[#eec037] animate-status-glow translate-x-[-25%] translate-y-[-25%]" />
             </Avatar>
-            <CardTitle className="mt-4 text-[16px]">Kenneth Okoro</CardTitle>
+            <CardTitle className="mt-4 text-[16px]">{fullName}</CardTitle>
             <CardDescription className="text-[#777779] text-[12px]">Automation Specialist</CardDescription>
           </CardHeader>
 
