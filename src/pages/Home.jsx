@@ -80,7 +80,7 @@ const Home = () => {
             </button>
 
             <Avatar size="lg" className="mx-auto">
-              <AvatarImage src="https://res.cloudinary.com/dw94gbpfs/image/upload/v1782134630/ken-avatar_pk6mzo.jpg" />
+              <AvatarImage src="https://res.cloudinary.com/dw94gbpfs/image/upload/v1782145852/ken-avatar_ay4r7t.png" />
               <AvatarFallback>{NameInnitial(fullName)}</AvatarFallback>
               <AvatarBadge className="bg-[#eec037] animate-status-glow translate-x-[-25%] translate-y-[-25%]" />
             </Avatar>
