@@ -105,51 +105,42 @@ export const stack = {
 
 export const slides = [
   {
-    fullName: "Kwame Mensah",
-    position: "Founder, FlowSync Africa",
+    fullName: "The Christ Anointed Family Chape Int’l.",
+    position: "General Overseer, cafcintl",
     testimonial:
-      "Our business operations became significantly more efficient after the automation systems were implemented. Everything now runs smoothly with minimal manual work.",
+      "New member information is now captured automatically and assigned to the right follow-up team without any manual work. It has made our onboarding process faster, more organized, and much easier to manage as our church continues to grow.",
     rating: 5,
     avatar:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+      "https://res.cloudinary.com/dw94gbpfs/image/upload/v1783954553/cafintl_lt7zag.jpg",
   },
   {
-    fullName: "Amina Okafor",
-    position: "Operations Manager, NovaCore Solutions",
+    fullName: "KJ Shots",
+    position: "CEO",
     testimonial:
-      "The workflow automations helped our team save hours every week and improved communication between departments.",
+      "We no longer have to manually sort through inquiries. Every lead is captured, scored based on quality, and receives timely follow-ups automatically, helping us focus on the prospects most likely to convert.",
     rating: 5,
     avatar:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330e",
+      "https://res.cloudinary.com/dw94gbpfs/image/upload/v1783954552/kj-shots_gdmnss.jpg",
   },
   {
-    fullName: "Tunde Balogun",
-    position: "CEO, SwiftEdge Technologies",
+    fullName: "Digital Gold Fx",
+    position: "Cummunity Manager, Digital Gold Fx",
     testimonial:
-      "Highly professional and detail-oriented. The custom API integrations and CRM automations exceeded our expectations.",
+      "Our Telegram community now receives real-time crypto price updates automatically, keeping everyone informed without constant monitoring. The workflow has been reliable, accurate, and has saved us a great deal of time.",
     rating: 4,
     avatar:
       "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
   },
   {
-    fullName: "Zanele Dlamini",
-    position: "Project Lead, CloudBridge Africa",
+    fullName: "The Christ Anointed Family Chapel",
+    position: "Lead, Follow-up team, cafcintl",
     testimonial:
-      "From onboarding automation to internal workflows, every solution delivered improved our productivity immediately.",
+      "Every first-time guest and new member now receives consistent follow-up messages automatically, ensuring no one is overlooked. The entire follow-up process is more organized, and our team can focus on building meaningful connections instead of tracking everything manually.",
     rating: 5,
     avatar:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80e",
+      "https://res.cloudinary.com/dw94gbpfs/image/upload/v1783954553/cafintl_lt7zag.jpg",
   },
-  {
-    fullName: "Chinedu Eze",
-    position: "Founder, AutomateHub",
-    testimonial:
-      "The automation setup using Airtable and Zapier transformed how we manage client operations and reporting.",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1504593811423-6dd665756598e",
-  },
-
+  
 ];
 
 export const projects = [
@@ -209,6 +200,6 @@ export const EXPERIENCE = [
 
   { company: "The Christ Anointed Family Chapel", role: "Automation Consultant", period: "Apr 2025 – Aug 2025", desc: "Built automation systems that eliminated repetitive work." },
 
-  { company: "Webfox", role: "Penetration Tester", period: "Jan 2024 – May 2024", desc: "Optimize your website and apps performance using latest technology." },
+  // { company: "Webfox", role: "Penetration Tester", period: "Jan 2024 – May 2024", desc: "Optimize your website and apps performance using latest technology." },
 
 ];

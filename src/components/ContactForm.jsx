@@ -32,10 +32,10 @@ export default function ContactForm() {
     },
   });
 
+
   const onSubmit = async ( values) => {
     try {
-      console.log(values);
-      emailjs
+      const response = await emailjs
         .send(
           import.meta.env.VITE_SERVICE_ID,
           import.meta.env.VITE_TEMPLATE_ID,
@@ -47,15 +47,22 @@ export default function ContactForm() {
            
           import.meta.env.VITE_PUBLIC_KEY
         )
-      toast.success("Form submitted successfully");
 
-      console.log(JSON.stringify(values, null, 2));
+        if(response.status === 200){
+          toast.success("Form submitted successfully");
+          form.reset();          
+        }else {
+          toast.error("Something went wrong. Please try again.");
+          console.warn("Unexpected response:", response);
+        }
 
-      form.reset();
-    } catch (error) {
-      console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.");
-    }
+        
+        // console.log(JSON.stringify(values, null, 2));
+        
+      } catch (error) {
+        console.error("Form submission error", error);
+        toast.error("Failed to submit the form. Please try again.");
+      }
   };
 
   return (

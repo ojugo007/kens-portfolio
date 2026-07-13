@@ -198,8 +198,8 @@ const Home = () => {
                   </a>
                 </div>
               </div>
-              <div className="hidden lg:block flex-1">
-                <img src="https://res.cloudinary.com/dw94gbpfs/image/upload/v1782067215/ken-portrait_hjk2zx.png" alt="hero image" className="w-full" />
+              <div className="hidden lg:block flex-1 self-end">
+                <img src="https://res.cloudinary.com/dw94gbpfs/image/upload/v1782067215/ken-portrait_hjk2zx.png" alt="hero image" className="w-full h-full object-contain object-bottom" />
               </div>
             </div>
           </header>
