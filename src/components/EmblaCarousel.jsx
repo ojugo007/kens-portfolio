@@ -30,12 +30,23 @@ const EmblaCarousel = (props) => {
             <div className="embla__viewport w-full pl-4" ref={emblaRef}>
                 <div className="embla__container gap-6 w-full">
                     {slides.map((slide, index) => (
-                        <div className="embla__slide bg-[#2c2d39] text-left flex relative gap-6 py-8 px-4" key={index}>
-                            <div className=" ">
-                                <h4 className='text-[14px] tracking-tighter text-white/80'>{slide.fullName}</h4>
-                                <small className='mt-px mb-3 block text-[12px] text-[#777779] font-light '>{slide.position} </small>
+                        <div className="embla__slide bg-[#2c2d39] text-left flex relative py-8 px-4" key={index}>
+                            <div className="w-full flex flex-col justify-between">
+                                <div className='flex justify-between items-center mb-1'>
+                                    <div>
+                                        <h4 className='text-[14px] tracking-tighter text-white/80'>{slide.fullName}</h4>
+                                        <small className='mt-px mb-3 block text-[12px] text-[#777779] font-light '>{slide.position} </small>
+                                    </div>
+                                    {/* avatar */}
+                                    <Avatar size="lg" className={''}>
+                                        <AvatarImage
+                                            src={slide.avatar}
+                                        />
+                                        <AvatarFallback className={"bg-[#20202a] text-[#eec037] text-2xl font-semibold border-0 shadow-none ring-0"}>{NameInnitial(slide.fullName)}</AvatarFallback>
+                                    </Avatar>
+                                </div>
                                 <p className='text-[13px] text-[#777779] leading-4.5'>{slide.testimonial} </p>
-                                
+
                                 {/* rating star display */}
                                 <div className="flex items-center gap-1 mt-5 bg-[#20202a] w-max p-1 rounded">
                                     {[...Array(5)].map((_, index) => (
@@ -51,13 +62,7 @@ const EmblaCarousel = (props) => {
                                     ))}
                                 </div>
                             </div>
-                            {/* avatar */}
-                            <Avatar size="lg" className={''}>
-                                <AvatarImage
-                                    src={slide.avatar}
-                                />
-                                <AvatarFallback className={"bg-[#20202a] text-[#eec037] text-2xl font-semibold border-0 shadow-none ring-0"}>{NameInnitial(slide.fullName)}</AvatarFallback>
-                            </Avatar>
+
 
 
                         </div>

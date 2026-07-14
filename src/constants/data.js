@@ -105,7 +105,7 @@ export const stack = {
 
 export const slides = [
   {
-    fullName: "The Christ Anointed Family Chape Int’l.",
+    fullName: "The Christ Anointed Family Chapel Int’l.",
     position: "General Overseer, cafcintl",
     testimonial:
       "New member information is now captured automatically and assigned to the right follow-up team without any manual work. It has made our onboarding process faster, more organized, and much easier to manage as our church continues to grow.",

@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react'
 import { CountUp } from "use-count-up"
 import TypingText from "@/components/TypingText"
 import CardComponent from "@/components/CardComponent"
-import { services, stats, skills, roles, stack, slides, projects, EXPERIENCE, EDUCATION } from "@/constants/database"
+import { services, stats, skills, roles, stack, slides, projects, EXPERIENCE, EDUCATION } from "@/constants/data"
 import '../css/embla.css'
 import EmblaCarousel from '../components/EmblaCarousel'
 import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa"
