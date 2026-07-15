@@ -68,16 +68,16 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
-      className="space-y-6 w-full p-6 bg-[#2c2d39] flex flex-col "
+      className="space-y-6 w-full p-6 bg-card flex flex-col "
     >
       <Field>
         <div className="flex items-stretch w-full h-12.5 ">
-          <FieldLabel htmlFor="name" className={"p-4 bg-[#20202a] text-[#858585] cursor-pointer"}> <FaUser /> </FieldLabel>
+          <FieldLabel htmlFor="name" className={"p-4 bg-surface-alt text-ink-muted cursor-pointer"}> <FaUser /> </FieldLabel>
           <Input
             id="name"
             placeholder="Name"
             {...form.register("name")}
-            className={"h-full rounded-none bg-[#242430] text-[12px] text-[#777779] placeholder:text-[12px] font-medium border-0 ring-0 focus-visible:ring-0 focus-visible:outline-none w-full"}
+            className={"h-full rounded-none bg-card-alt text-[12px] text-ink-muted placeholder:text-[12px] font-medium border-0 ring-0 focus-visible:ring-0 focus-visible:outline-none w-full"}
           />
 
         </div>
@@ -91,7 +91,7 @@ export default function ContactForm() {
       <Field>
         <div className="flex items-stretch w-full h-12.5 ">
 
-          <FieldLabel htmlFor="email" className={"p-4 bg-[#20202a] text-[#858585] cursor-pointer"}><MdAlternateEmail />
+          <FieldLabel htmlFor="email" className={"p-4 bg-surface-alt text-ink-muted cursor-pointer"}><MdAlternateEmail />
           </FieldLabel>
 
           <Input
@@ -99,7 +99,7 @@ export default function ContactForm() {
             type="email"
             placeholder="your@email.com"
             {...form.register("email")}
-            className={"h-full rounded-none bg-[#242430] text-[12px] text-[#777779] placeholder:text-[12px] font-medium border-0 ring-0 focus-visible:ring-0 focus-visible:outline-none w-full"}
+            className={"h-full rounded-none bg-card-alt text-[12px] text-ink-muted placeholder:text-[12px] font-medium border-0 ring-0 focus-visible:ring-0 focus-visible:outline-none w-full"}
           />
         </div>
 
@@ -111,14 +111,14 @@ export default function ContactForm() {
       <Field>
         <div className="flex items-stretch w-full h-37.5 ">
 
-          <FieldLabel htmlFor="message" className={"p-4 bg-[#20202a] text-[#858585] flex items-start  transition-all ease-in-out duration-200 cursor-pointer "} ><MdEmail /></FieldLabel>
+          <FieldLabel htmlFor="message" className={"p-4 bg-surface-alt text-ink-muted flex items-start  transition-all ease-in-out duration-200 cursor-pointer "} ><MdEmail /></FieldLabel>
 
           <Textarea
             id="message"
             placeholder="Tell me about your project..."
             rows={6}
             {...form.register("message")}
-            className={"h-full rounded-none bg-[#242430] text-[12px] text-[#777779] placeholder:text-[12px] font-medium border-0 ring-0 focus-visible:ring-0 focus-visible:outline-none pt-4 max-w-full"}
+            className={"h-full rounded-none bg-card-alt text-[12px] text-ink-muted placeholder:text-[12px] font-medium border-0 ring-0 focus-visible:ring-0 focus-visible:outline-none pt-4 max-w-full"}
           />
         </div>
 
@@ -130,7 +130,7 @@ export default function ContactForm() {
       <Button
         type="submit"
         disabled={form.formState.isSubmitting}
-        className="px-4 py-2 bg-[#eec037] w-37.5 text-[#382400] uppercase text-[12px] font-bold tracking-widest cursor-pointer transition-all duration-600 ease-in-out text-center hover:tracking-wider rounded-none "
+        className="px-4 py-2 bg-accent w-37.5 text-[#382400] uppercase text-[12px] font-bold tracking-widest cursor-pointer transition-all duration-600 ease-in-out text-center hover:tracking-wider rounded-none "
       >
         {form.formState.isSubmitting ? "Sending..." : "Submit"}
       </Button>

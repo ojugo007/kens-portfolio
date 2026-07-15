@@ -101,7 +101,6 @@
   -webkit-tap-highlight-color: rgba(var(--text-high-contrast-rgb-value), 0.5);
   -webkit-appearance: none;
   appearance: none;
-  background-color: #eec037;
   touch-action: manipulation;
   display: inline-flex;
   text-decoration: none;
@@ -112,13 +111,15 @@
   width: 8px;
   height: 3px;
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--border-subtle);
   transition: width 0.3s ease, background-color 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
 }
+
+
 
 .embla__dot:before,
 .embla__dot:after {
@@ -140,8 +141,8 @@
 }
 
 .embla__dot--selected {
-  background-color: #eec037;
-  width: 15px ;
+  background-color: var(--accent);
+  width: 15px;
   height: 3px;
 }
 

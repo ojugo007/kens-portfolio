@@ -150,38 +150,38 @@ export const projects = [
     projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1781798212/Automated%20CRM%20and%20Team%20Assignment%20workflow.jpg",
     projectDesc: "Auto-routed leads by region and expertise, cutting response times to under 2 minutes."
   },
+  // {
+  //   id: 2,
+  //   projectTitle : "Employee PTO Automation",
+  //   projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
+  //   projectDesc: "Automated leave approvals and calendar updates, reducing HR admin work by 90%."
+  // },
   {
-    id: 2,
-    projectTitle : "Employee PTO Automation",
-    projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
-    projectDesc: "Automated leave approvals and calendar updates, reducing HR admin work by 90%."
-  },
-  {
-     id: 3,
+     id: 2,
     projectTitle : "Smart Follow-up System",
     projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
     projectDesc: "Triggered personalized outreach from lead activity, increasing reply rates by 40%."
   },
   {
-     id: 4,
+     id: 3,
     projectTitle : "Telegram Crypto Price Tracker",
     projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1781798212/crypto%20price%20telegram%20chatbot%20workflow.jpg",
     projectDesc: "Delivered real-time Telegram alerts, eliminating manual chart monitoring."
   },
   {
-     id: 5,
+     id: 4,
     projectTitle : "AI Email Lead Scoring + Drafting",
     projectImage : " https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
     projectDesc: "Prioritized incoming leads and drafted responses, saving 15+ hours per week."
   },
   {
-     id: 6,
+     id: 5,
     projectTitle : "Automated Employee PTO System for Loubby Ai.",
     projectImage : " https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
     projectDesc: "Developed an automated Paid Time Off (PTO) management system for Loubby AI that streamlines leave requests, approvals, and record keeping."
   },
   {
-     id: 7,
+     id: 6,
     projectTitle : "Automated lead-nurturing pipeline.",
     projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1781875495/Automated%20lead-nurturing%20pipeline.jpg",
     projectDesc: "Developed a lead-nurturing workflow that automates follow-ups, tracks engagement, and moves prospects through the sales funnel efficiently."
@@ -200,6 +200,6 @@ export const EXPERIENCE = [
 
   { company: "The Christ Anointed Family Chapel", role: "Automation Consultant", period: "Apr 2025 – Aug 2025", desc: "Built automation systems that eliminated repetitive work." },
 
-  // { company: "Webfox", role: "Penetration Tester", period: "Jan 2024 – May 2024", desc: "Optimize your website and apps performance using latest technology." },
+  { company: "KJ Shots", role: "Automation Engineer", period: "Jan 2024 – May 2024", desc: "Built an automated lead capture and scoring system with AI-driven follow-ups." },
 
 ];
