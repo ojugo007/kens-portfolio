@@ -196,10 +196,11 @@ export const EDUCATION = [
 ];
 
 export const EXPERIENCE = [
-  { company: "Freelance", role: "Automation Consultant", period: "Jan 2025 – Present", desc: "Built automation systems that eliminated repetitive work, saving clients 20+ hours weekly and reducing manual data entry by 80%." },
+  { company: "Freelance", role: "Automation Consultant", period: "Aug 2025 – Present", desc: "Built automation systems that eliminated repetitive work, saving clients 20+ hours weekly and reducing manual data entry by 80%." },
+
+  { company: "KJ Shots", role: "Automation Engineer", period: "feb 2026", desc: "Built an automated lead capture and scoring system with AI-driven follow-ups." },
 
   { company: "The Christ Anointed Family Chapel", role: "Automation Consultant", period: "Apr 2025 – Aug 2025", desc: "Built automation systems that eliminated repetitive work." },
 
-  { company: "KJ Shots", role: "Automation Engineer", period: "Jan 2024 – May 2024", desc: "Built an automated lead capture and scoring system with AI-driven follow-ups." },
 
 ];
