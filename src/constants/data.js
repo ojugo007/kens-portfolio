@@ -156,24 +156,24 @@ export const projects = [
   //   projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
   //   projectDesc: "Automated leave approvals and calendar updates, reducing HR admin work by 90%."
   // },
-  {
-     id: 2,
-    projectTitle : "Smart Follow-up System",
-    projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
-    projectDesc: "Triggered personalized outreach from lead activity, increasing reply rates by 40%."
-  },
+  // {
+  //    id: 2,
+  //   projectTitle : "Smart Follow-up System",
+  //   projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
+  //   projectDesc: "Triggered personalized outreach from lead activity, increasing reply rates by 40%."
+  // },
   {
      id: 3,
     projectTitle : "Telegram Crypto Price Tracker",
     projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1781798212/crypto%20price%20telegram%20chatbot%20workflow.jpg",
     projectDesc: "Delivered real-time Telegram alerts, eliminating manual chart monitoring."
   },
-  {
-     id: 4,
-    projectTitle : "AI Email Lead Scoring + Drafting",
-    projectImage : " https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
-    projectDesc: "Prioritized incoming leads and drafted responses, saving 15+ hours per week."
-  },
+  // {
+  //    id: 4,
+  //   projectTitle : "AI Email Lead Scoring + Drafting",
+  //   projectImage : " https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
+  //   projectDesc: "Prioritized incoming leads and drafted responses, saving 15+ hours per week."
+  // },
   {
      id: 5,
     projectTitle : "Automated Employee PTO System for Loubby Ai.",
