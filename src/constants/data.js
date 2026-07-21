@@ -177,7 +177,7 @@ export const projects = [
   {
      id: 5,
     projectTitle : "Automated Employee PTO System for Loubby Ai.",
-    projectImage : " https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
+    projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1784633907/automated-pto_jolfng.jpg",
     projectDesc: "Developed an automated Paid Time Off (PTO) management system for Loubby AI that streamlines leave requests, approvals, and record keeping."
   },
   {
