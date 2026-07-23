@@ -4,7 +4,7 @@ import {
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Separator } from "@/components/ui/separator"
-import { Check, ChevronRight, HardDriveDownload, Menu, X } from "lucide-react"
+import { Check, CheckCircle2, ChevronRight, HardDriveDownload, Menu, X } from "lucide-react"
 import React, { useEffect, useState } from 'react'
 import { CountUp } from "use-count-up"
 import TypingText from "@/components/TypingText"
@@ -18,6 +18,16 @@ import ContactForm from "@/components/ContactForm"
 import { NameInnitial } from "@/lib/utils"
 import { useTheme } from "../context/ThemeContext";
 import { Switch } from "@/components/ui/switch"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
+
 
 const Home = () => {
   const { dark, setDark } = useTheme()
@@ -258,10 +268,130 @@ const Home = () => {
                     <h5 className="text-[13px] text-ink/80 font-medium capitalize leading-4.5">{project.projectTitle}</h5>
                     <p className="text-[12px] text-ink-muted leading-4.5">{project.projectDesc}</p>
 
-                    {/* <a href={project?.projectUrl} className="cursor-pointer text-accent text-[10px] tracking-wider uppercase flex items-center gap-1.25 transition-all duration-500 ease-in-out hover:gap-2">
-                      <span>View Project</span>
-                      <ChevronRight size={13} strokeWidth={4} />
-                    </a> */}
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <button className="cursor-pointer text-accent text-[10px] tracking-wider uppercase flex items-center gap-1.25 transition-all duration-500 ease-in-out hover:gap-2 mt-2.5">
+                          <span>Read More</span>
+                          <ChevronRight size={13} strokeWidth={4} />
+                        </button>
+                      </DialogTrigger>
+
+                      <DialogContent className="w-[calc(100vw-2rem)] sm:w-full sm:max-w-md max-h-[85vh] h-[85vh] flex flex-col overflow-hidden p-0 rounded-none border-0 shadow-none ring-0 text-left bg-card gap-0">
+
+                        {/* Banner image with title overlay */}
+                        <div className="relative w-full h-36 sm:h-44 shrink-0 overflow-hidden">
+                          <img
+                            src={project.projectImage}
+                            alt={project.projectTitle}
+                            className="w-full h-full object-cover"
+                          />
+                          <div
+                            className="absolute inset-0"
+                            style={{
+                              backgroundImage: `linear-gradient(to top, var(--bg-card), transparent)`,
+                            }}
+                          />
+                          <DialogHeader className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                            <span className="text-accent text-[10px] font-bold tracking-widest uppercase mb-1 block">
+                              Case Study
+                            </span>
+                            <DialogTitle>
+                              <h2 className="text-left text-[16px] sm:text-[18px] text-ink font-semibold capitalize leading-5.5">
+                                {project.projectTitle}
+                              </h2>
+                            </DialogTitle>
+                            <DialogDescription className="sr-only">
+                              {project.projectTitle} case study details
+                            </DialogDescription>
+                          </DialogHeader>
+                        </div>
+
+                        {/* Scrollable body */}
+                        <div className="overflow-y-auto themed-scrollbar min-h-0 flex-1 px-4 sm:px-6 py-6 flex flex-col gap-6">
+
+                          {/* Overview / Challenge / Solution — stacked, not a grid */}
+                          <div className="flex flex-col gap-3">
+                            <div className="bg-surface-alt p-4">
+                              <h3 className="text-[11px] font-bold tracking-widest uppercase text-accent mb-2">Overview</h3>
+                              <p className="text-[13px] text-ink-muted leading-5.5">{project.caseStudy.overview}</p>
+                            </div>
+                            <div className="bg-surface-alt p-4">
+                              <h3 className="text-[11px] font-bold tracking-widest uppercase text-accent mb-2">The Challenge</h3>
+                              <p className="text-[13px] text-ink-muted leading-5.5">{project.caseStudy.challenge}</p>
+                            </div>
+                            <div className="bg-surface-alt p-4">
+                              <h3 className="text-[11px] font-bold tracking-widest uppercase text-accent mb-2">The Solution</h3>
+                              <p className="text-[13px] text-ink-muted leading-5.5">{project.caseStudy.solution}</p>
+                            </div>
+                          </div>
+
+                          <Separator className="bg-edge" />
+
+                          {/* Workflow — timeline style */}
+                          <section>
+                            <h3 className="text-[13px] font-semibold text-ink/80 mb-4">Automation Workflow</h3>
+                            <div className="flex gap-3">
+                              <div className="flex flex-col items-center pt-1">
+                                {project.caseStudy.workflow.map((_, i) => (
+                                  <React.Fragment key={i}>
+                                    <div className="w-3 h-3 rounded-full border-2 border-accent bg-transparent shrink-0" />
+                                    {i < project.caseStudy.workflow.length - 1 && (
+                                      <div className="w-px flex-1 min-h-8 bg-edge" />
+                                    )}
+                                  </React.Fragment>
+                                ))}
+                              </div>
+                              <ol className="flex-1 flex flex-col gap-4">
+                                {project.caseStudy.workflow.map((step, index) => (
+                                  <li key={index} className="text-[13px] text-ink-muted leading-5.5 -mt-0.5">
+                                    {step}
+                                  </li>
+                                ))}
+                              </ol>
+                            </div>
+                          </section>
+
+                          <Separator className="bg-edge" />
+
+                          {/* Technologies */}
+                          <section>
+                            <h3 className="text-[13px] font-semibold text-ink/80 mb-4">Technologies Used</h3>
+                            <div className="flex flex-wrap gap-2">
+                              {project.caseStudy.technologies.map((tech) => (
+                                <span
+                                  key={tech}
+                                  className="bg-surface-alt text-ink-muted text-[11px] px-3 py-1.5 border border-edge"
+                                >
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
+                          </section>
+
+                          <Separator className="bg-edge" />
+
+                          {/* Results */}
+                          <section>
+                            <h3 className="text-[13px] font-semibold text-ink/80 mb-4">Results</h3>
+                            <ul className="flex flex-col gap-2">
+                              {project.caseStudy.results.map((result) => (
+                                <li key={result} className="flex items-start gap-3 bg-card-alt p-3">
+                                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-accent shrink-0" />
+                                  <span className="text-[13px] text-ink-muted leading-5.5">{result}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </section>
+
+                          {/* Takeaway callout */}
+                          <section className="bg-surface-alt border-l-2 border-accent p-5">
+                            <h3 className="text-[11px] font-bold tracking-widest uppercase text-accent mb-2">Key Takeaway</h3>
+                            <p className="text-[13px] text-ink-muted leading-5.5">{project.caseStudy.takeaway}</p>
+                          </section>
+
+                        </div>
+                      </DialogContent>
+                    </Dialog>
                   </div>
                 </div>
               ))}

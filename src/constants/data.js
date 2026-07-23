@@ -146,47 +146,196 @@ export const slides = [
 export const projects = [
   {
     id: 1,
-    projectTitle : "Automated CRM + Team Assignment",
-    projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1781798212/Automated%20CRM%20and%20Team%20Assignment%20workflow.jpg",
-    projectDesc: "Auto-routed leads by region and expertise, cutting response times to under 2 minutes."
+    projectTitle: "Automated CRM + Team Assignment",
+    projectImage:
+      "https://res.cloudinary.com/dw94gbpfs/image/upload/v1781798212/Automated%20CRM%20and%20Team%20Assignment%20workflow.jpg",
+    projectDesc:
+      "Auto-routed leads by region and expertise, cutting response times to under 2 minutes.",
+
+    caseStudy: {
+      overview:
+        "A client needed a faster and more reliable way to distribute incoming leads to the correct sales representatives. Their existing process relied on manually reviewing every submission before assigning it to the appropriate team member, creating delays and inconsistent lead handling.",
+
+      challenge:
+        "Incoming leads were manually reviewed, assigned by region and expertise, and then communicated to the appropriate sales representative. As lead volume increased, response times became inconsistent and valuable opportunities risked being lost.",
+
+      solution:
+        "I designed an automated workflow that validates incoming submissions, determines the customer's region, identifies the appropriate sales representative, updates the CRM automatically, and instantly notifies the assigned team member.",
+
+      workflow: [
+        "Lead form submission",
+        "Validate customer data",
+        "Determine customer region",
+        "Find matching sales representative",
+        "Assign lead in CRM",
+        "Notify assigned team member",
+        "Log activity",
+      ],
+
+      technologies: [
+        "Make.com",
+        "CRM Integration",
+        "Webhooks",
+        "Google Sheets / Airtable",
+        "Email Notifications",
+      ],
+
+      results: [
+        "Reduced lead response time to under 2 minutes",
+        "Eliminated manual lead assignment",
+        "Improved routing consistency",
+        "Reduced the risk of missed or forgotten leads",
+        "Allowed sales representatives to focus on closing deals",
+      ],
+
+      takeaway:
+        "This automation improved both customer response times and internal operational efficiency by removing repetitive administrative work.",
+    },
   },
-  // {
-  //   id: 2,
-  //   projectTitle : "Employee PTO Automation",
-  //   projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
-  //   projectDesc: "Automated leave approvals and calendar updates, reducing HR admin work by 90%."
-  // },
-  // {
-  //    id: 2,
-  //   projectTitle : "Smart Follow-up System",
-  //   projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
-  //   projectDesc: "Triggered personalized outreach from lead activity, increasing reply rates by 40%."
-  // },
+
   {
-     id: 3,
-    projectTitle : "Telegram Crypto Price Tracker",
-    projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1781798212/crypto%20price%20telegram%20chatbot%20workflow.jpg",
-    projectDesc: "Delivered real-time Telegram alerts, eliminating manual chart monitoring."
+    id: 3,
+    projectTitle: "Telegram Crypto Price Tracker",
+    projectImage:
+      "https://res.cloudinary.com/dw94gbpfs/image/upload/v1781798212/crypto%20price%20telegram%20chatbot%20workflow.jpg",
+    projectDesc:
+      "Delivered real-time Telegram alerts, eliminating manual chart monitoring.",
+
+    caseStudy: {
+      overview:
+        "Crypto traders often spend hours monitoring price charts. This project automated market monitoring and delivered instant Telegram alerts whenever predefined price conditions were met.",
+
+      challenge:
+        "Users had to manually monitor multiple cryptocurrency charts throughout the day, making it easy to miss important price movements.",
+
+      solution:
+        "I built an automated monitoring workflow that continuously checks cryptocurrency prices, compares them against user-defined thresholds, and instantly delivers Telegram notifications whenever conditions are met.",
+
+      workflow: [
+        "Scheduled price check",
+        "Fetch market data",
+        "Compare against alert rules",
+        "Evaluate conditions",
+        "Send Telegram notification",
+        "Log alert",
+      ],
+
+      technologies: [
+        "Make.com",
+        "Telegram Bot API",
+        "Crypto Price API",
+        "Scheduling",
+        "Conditional Logic",
+      ],
+
+      results: [
+        "Eliminated manual market monitoring",
+        "Delivered real-time Telegram notifications",
+        "Improved reaction time to market movements",
+        "Reduced repetitive chart checking",
+      ],
+
+      takeaway:
+        "Automation can improve personal productivity just as much as business operations by removing repetitive monitoring tasks.",
+    },
   },
-  // {
-  //    id: 4,
-  //   projectTitle : "AI Email Lead Scoring + Drafting",
-  //   projectImage : " https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg",
-  //   projectDesc: "Prioritized incoming leads and drafted responses, saving 15+ hours per week."
-  // },
+
   {
-     id: 5,
-    projectTitle : "Automated Employee PTO System for Loubby Ai.",
-    projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1784633907/automated-pto_jolfng.jpg",
-    projectDesc: "Developed an automated Paid Time Off (PTO) management system for Loubby AI that streamlines leave requests, approvals, and record keeping."
+    id: 5,
+    projectTitle: "Automated Employee PTO System for Loubby AI",
+    projectImage:
+      "https://res.cloudinary.com/dw94gbpfs/image/upload/v1784633907/automated-pto_jolfng.jpg",
+    projectDesc:
+      "Developed an automated Paid Time Off (PTO) management system for Loubby AI that streamlines leave requests, approvals, and record keeping.",
+
+    caseStudy: {
+      overview:
+        "Loubby AI needed a centralized and automated way to manage employee leave requests while reducing administrative overhead for HR.",
+
+      challenge:
+        "Leave requests, approvals, PTO balance tracking, and employee notifications were handled manually, making the process slow and prone to errors.",
+
+      solution:
+        "I developed an automated PTO management workflow where employees submit requests through a single form, managers approve requests automatically, leave balances update instantly, and employees receive status notifications.",
+
+      workflow: [
+        "Employee submits PTO request",
+        "Manager receives approval request",
+        "Approve or reject request",
+        "Update PTO balance",
+        "Update employee records",
+        "Notify employee",
+      ],
+
+      technologies: [
+        "Make.com",
+        "Airtable",
+        "Notion",
+        "Email Automation",
+        "Approval Workflow",
+      ],
+
+      results: [
+        "Reduced repetitive HR administration",
+        "Improved visibility into leave balances",
+        "Standardized the approval process",
+        "Maintained an accurate leave history",
+        "Reduced approval turnaround time",
+      ],
+
+      takeaway:
+        "Automating internal HR processes improved accuracy, transparency, and employee experience while reducing manual administrative work.",
+    },
   },
+
   {
-     id: 6,
-    projectTitle : "Automated lead-nurturing pipeline.",
-    projectImage : "https://res.cloudinary.com/dw94gbpfs/image/upload/v1781875495/Automated%20lead-nurturing%20pipeline.jpg",
-    projectDesc: "Developed a lead-nurturing workflow that automates follow-ups, tracks engagement, and moves prospects through the sales funnel efficiently."
+    id: 6,
+    projectTitle: "Automated Lead-Nurturing Pipeline",
+    projectImage:
+      "https://res.cloudinary.com/dw94gbpfs/image/upload/v1781875495/Automated%20lead-nurturing%20pipeline.jpg",
+    projectDesc:
+      "Developed a lead-nurturing workflow that automates follow-ups, tracks engagement, and moves prospects through the sales funnel efficiently.",
+
+    caseStudy: {
+      overview:
+        "Many businesses lose potential customers because follow-ups are inconsistent. This workflow automated lead nurturing to ensure every prospect received timely and personalized communication.",
+
+      challenge:
+        "Sales teams struggled to consistently follow up with every lead, causing prospects to lose interest before meaningful engagement occurred.",
+
+      solution:
+        "I created an automated lead nurturing workflow that tracks prospect activity, schedules personalized follow-up messages, updates the CRM, and alerts sales representatives when prospects become engaged.",
+
+      workflow: [
+        "New lead captured",
+        "Store lead in CRM",
+        "Wait based on follow-up schedule",
+        "Send personalized message",
+        "Track engagement",
+        "Notify sales representative when qualified",
+      ],
+
+      technologies: [
+        "Make.com",
+        "CRM Integration",
+        "Email Automation",
+        "Scheduling",
+        "Conditional Logic",
+      ],
+
+      results: [
+        "Automated repetitive follow-up tasks",
+        "Improved lead engagement",
+        "Reduced manual sales administration",
+        "Created a consistent customer journey",
+        "Helped move prospects through the sales funnel more efficiently",
+      ],
+
+      takeaway:
+        "Consistent follow-up is critical to sales success, and automation ensures no opportunity is overlooked.",
+    },
   },
-]
+];
 
 
 export const EDUCATION = [
