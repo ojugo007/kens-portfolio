@@ -68,7 +68,7 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
-      className="space-y-6 w-full p-6 bg-card flex flex-col "
+      className="space-y-6 w-full p-6 bg-card flex flex-col"
     >
       <Field>
         <div className="flex items-stretch w-full h-12.5 ">
