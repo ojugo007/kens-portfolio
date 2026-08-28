@@ -16,6 +16,8 @@ import { MdAlternateEmail } from "react-icons/md"
 import { RiLockPasswordLine } from "react-icons/ri"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { useState } from "react"
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa"
 
 const formSchema = z.object({
     email: z.string().email("Enter a valid email address"),
@@ -24,7 +26,7 @@ const formSchema = z.object({
 
 
 const AdminLogin = () => {
-
+    const [hidePassword, setHidePassword] = useState(true)
     const navigate = useNavigate()
     const form = useForm({
         resolver: zodResolver(formSchema),
@@ -197,7 +199,7 @@ const AdminLogin = () => {
 
                             <Input
                                 id="password"
-                                type="password"
+                                type= {hidePassword? "password" : "text"}
                                 placeholder="••••••••"
                                 {...form.register("password")}
                                 className="
@@ -215,7 +217,25 @@ const AdminLogin = () => {
                                     focus-visible:outline-none
                                     w-full
                                 "
+                                
                             />
+                            <span 
+                            onClick={()=>setHidePassword(!hidePassword)}
+                            className="
+                                    w-13
+                                    shrink-0
+                                    flex
+                                    items-center
+                                    justify-center
+                                    bg-surface-alt
+                                    text-ink-muted
+                                    cursor-pointer
+                                    border-r
+                                    border-edge
+                                ">
+                                    {/* {hidePassword?(<p>show</p>):(<p>hide</p>)} */}
+                                    {hidePassword?(<FaRegEye/>):(<FaRegEyeSlash/>)}
+                                </span>
 
                         </div>
 
