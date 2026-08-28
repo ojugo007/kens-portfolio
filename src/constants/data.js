@@ -274,7 +274,6 @@ export const projects = [
         "Email Automation",
         "Approval Workflow",
       ],
-
       results: [
         "Reduced repetitive HR administration",
         "Improved visibility into leave balances",
@@ -282,7 +281,6 @@ export const projects = [
         "Maintained an accurate leave history",
         "Reduced approval turnaround time",
       ],
-
       takeaway:
         "Automating internal HR processes improved accuracy, transparency, and employee experience while reducing manual administrative work.",
     },
@@ -353,3 +351,31 @@ export const EXPERIENCE = [
 
 
 ];
+
+export const defaultConfig = {
+  fullName: "",
+  role: "",
+  avatarUrl: "/placeholder-avatar.png",
+  heroImage: "/placeholder-hero.jpg",
+  heroPortrait: "/placeholder-portrait.png",
+  resume: "",
+  heroTitle: "",
+  heroText: [],
+  stats: [],
+  location: {
+    country: "",
+    city: "",
+  },
+  contact: {
+    email: "",
+    phone: "",
+    whatsapp: "",
+    supportPhone: "",
+  },
+  socials: {
+    linkedin: "",
+    github: "",
+    twitter: "",
+    instagram: "",
+  },
+}

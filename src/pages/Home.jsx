@@ -26,15 +26,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-
+import { useClientConfig } from "@/hooks/useClientConfig"
 
 
 const Home = () => {
+  const { config, loading } = useClientConfig()
   const { dark, setDark } = useTheme()
   const OPTIONS = { slidesToScroll: 'auto' }
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [selected, setSelected] = useState(null)
-  const fullName = "Kenneth Okoro"
+  const fullName = config.fullName
   const [stackProgress, setStackProgress] = useState({
     "airtable": 0, "n8n": 0, "zapier": 0, "postman": 0
   })
@@ -95,23 +96,23 @@ const Home = () => {
               onCheckedChange={(checked) => setDark(checked ? "dark" : "light")}
             />
             <Avatar size="lg" className="mx-auto">
-              <AvatarImage src="https://res.cloudinary.com/dw94gbpfs/image/upload/v1782145852/ken-avatar_ay4r7t.png" />
+              <AvatarImage src={config?.avatarUrl} />
               <AvatarFallback>{NameInnitial(fullName)}</AvatarFallback>
               <AvatarBadge className="bg-[#eec037] animate-status-glow translate-x-[-25%] translate-y-[-25%]" />
             </Avatar>
-            <CardTitle className="mt-4 text-[16px]">{fullName}</CardTitle>
-            <CardDescription className="text-ink-muted text-[12px]">Automation Specialist</CardDescription>
+            <CardTitle className="mt-4 text-[16px]">{config?.fullName}</CardTitle>
+            <CardDescription className="text-ink-muted text-[12px]">{config?.role}</CardDescription>
           </CardHeader>
 
           <CardContent className="bg-surface-alt p-6 flex-1 overflow-y-auto scrollbar-hide scroll-smooth">
             <div className="flex flex-col gap-4">
               <div className="flex justify-between items-center">
                 <p className="text-[13px]">Residence:</p>
-                <p className="text-[12px] text-ink-muted">Nigeria</p>
+                <p className="text-[12px] text-ink-muted">{config?.location?.country}</p>
               </div>
               <div className="flex justify-between items-center">
                 <p className="text-[13px]">City:</p>
-                <p className="text-[12px] text-ink-muted">Lagos</p>
+                <p className="text-[12px] text-ink-muted">{config?.location?.city}</p>
               </div>
               <Separator className="bg-edge my-4" />
 
@@ -139,7 +140,7 @@ const Home = () => {
               <Separator className="bg-edge my-4" />
 
 
-              <a href="https://res.cloudinary.com/dw94gbpfs/image/upload/v1781279190/Kenneth_Automation_Resume_ftda8f.pdf?fl_attachment"
+              <a href={config?.resume}
                 download={true}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -152,13 +153,13 @@ const Home = () => {
           </CardContent>
 
           <CardFooter className="flex items-center justify-between px-6 rounded-b-none border-none bg-surface text-[14px]">
-            <a href="https://www.linkedin.com/in/kenneth-okoro-5a7a3815b" target="_blank" rel="noreferrer" className="text-ink-muted hover:text-ink transition-all ease-in-out duration-500"><FaLinkedinIn /></a>
+            <a href={config?.socials?.linkedin} target="_blank" rel="noreferrer" className="text-ink-muted hover:text-ink transition-all ease-in-out duration-500"><FaLinkedinIn /></a>
 
-            <a href="x.com" target="_blank" rel="noreferrer" className="text-ink-muted hover:text-ink transition-all ease-in-out duration-500"><FaXTwitter /></a>
+            <a href={config?.socials?.twitter} target="_blank" rel="noreferrer" className="text-ink-muted hover:text-ink transition-all ease-in-out duration-500"><FaXTwitter /></a>
 
-            <a href="github.com" target="_blank" rel="noreferrer" className="text-ink-muted hover:text-ink transition-all ease-in-out duration-500"><FaGithub /></a>
+            <a href={config?.socials?.github} target="_blank" rel="noreferrer" className="text-ink-muted hover:text-ink transition-all ease-in-out duration-500"><FaGithub /></a>
 
-            <a href="instagram.com" target="_blank" rel="noreferrer" className="text-ink-muted hover:text-ink transition-all ease-in-out duration-500"><FaInstagram /></a>
+            <a href={config?.socials?.instagram} target="_blank" rel="noreferrer" className="text-ink-muted hover:text-ink transition-all ease-in-out duration-500"><FaInstagram /></a>
           </CardFooter>
         </Card>
 
@@ -173,7 +174,7 @@ const Home = () => {
             >
               <Menu size={22} />
             </button>
-            <span className="text-ink text-[14px] font-semibold">Kenneth Okoro</span>
+            <span className="text-ink text-[14px] font-semibold">{config?.fullName}</span>
             <div className="w-6" /> {/* spacer */}
           </div>
 
@@ -181,7 +182,7 @@ const Home = () => {
           <header
             className="relative w-full h-[40vh] min-h-48 sm:min-h-56 lg:min-h-78 max-h-125 overflow-hidden"
             style={{
-              backgroundImage: `url('https://res.cloudinary.com/dw94gbpfs/image/upload/v1780168312/lin2015-siguniang-mountain-8568913_1920_jsgqgu.jpg')`,
+              backgroundImage: `url(${config?.heroImage})`,
               backgroundSize: "cover",
               backgroundPosition: "left top",
             }}
@@ -189,9 +190,9 @@ const Home = () => {
             <div className="absolute inset-0 bg-linear-to-b from-[#24242e]/60 to-[#24242e]/80" />
             <div className="relative z-10 p-4 lg:p-6 text-white flex w-full gap-4">
               <div className="text-left w-full lg:w-[60%]">
-                <h1 className="text-xl lg:text-3xl font-bold mt-4 lg:mt-6">Automating Workflows.<br />Accelerating Growth.</h1>
+                <h1 className="text-xl lg:text-3xl font-bold mt-4 lg:mt-6">{config?.heroTitle} </h1>
                 <TypingText
-                  texts={roles}
+                  texts={config?.heroText}
                   typingSpeed={50}
                   deletingSpeed={30}
                   pauseTime={2000}
@@ -214,14 +215,14 @@ const Home = () => {
                 </div>
               </div>
               <div className="hidden lg:block flex-1 self-end">
-                <img src="https://res.cloudinary.com/dw94gbpfs/image/upload/v1782067215/ken-portrait_hjk2zx.png" alt="hero image" className="w-full h-full object-contain object-bottom" />
+                <img src={config?.heroPortrait} alt="hero image" className="w-full h-full object-contain object-bottom" />
               </div>
             </div>
           </header>
 
           {/* Stats */}
           <div className="w-full my-6 grid grid-cols-1 min-[370px]:grid-cols-2  sm:flex sm:items-center sm:justify-between gap-4">
-            {stats.map((stat, index) => (
+            {config?.stats.map((stat, index) => (
               <div className="flex gap-3 items-center" key={index}>
                 <span className="text-[16px] lg:text-[20px] text-accent font-semibold">
                   <CountUp isCounting end={stat.value} duration={2} />{stat.showPlus && "+"}
@@ -476,32 +477,32 @@ const Home = () => {
               <div className="rounded-none border-0 shadow-none ring-0 text-left bg-card px-4 py-6 flex flex-col gap-3">
                 <div className="flex items-center justify-between">
                   <p className="text-ink/80 font-medium text-[13px]">Country:</p>
-                  <small className="text-[12px] text-ink-muted">Nigeria</small>
+                  <small className="text-[12px] text-ink-muted">{config?.location?.country}</small>
                 </div>
                 <div className="flex items-center justify-between">
                   <p className="text-ink/80 font-medium text-[13px]">City:</p>
-                  <small className="text-[12px] text-ink-muted">Lagos</small>
+                  <small className="text-[12px] text-ink-muted">{config?.location?.city}</small>
                 </div>
               </div>
               <div className="rounded-none border-0 shadow-none ring-0 text-left bg-card px-4 py-6 flex flex-col gap-3">
                 <div className="flex items-center justify-between">
                   <p className="text-ink/80 font-medium text-[13px]">Email:</p>
-                  <small className="text-[12px] text-ink-muted"><a href="mailto:Kennethokoro280@gmail.com">Kennethokoro280@gmail.com</a></small>
+                  <small className="text-[12px] text-ink-muted"><a href={`mailto:${config?.contact.email}`}>{config?.contact.email}</a></small>
                 </div>
                 <div className="flex items-center justify-between">
                   <p className="text-ink/80 font-medium text-[13px]">Direct Message:</p>
-                  <small className="text-[12px] text-ink-muted"><a href="https://wa.me/2349134692716">Chat on WhatsApp</a></small>
+                  <small className="text-[12px] text-ink-muted"><a href={config?.contact.whatsapp}>Chat on WhatsApp</a></small>
                 </div>
               </div>
               <div className="rounded-none border-0 shadow-none ring-0 text-left bg-card px-4 py-6 flex flex-col gap-3">
                 <div className="flex items-center justify-between">
                   <p className="text-ink/80 font-medium text-[13px]">Phone:</p>
-                  <small className="text-[12px] text-ink-muted"><a href="tel:+2349134692716">09134692716
+                  <small className="text-[12px] text-ink-muted"><a href={`tel:${config?.contact?.phone}`}>{config?.contact.phone}
                   </a></small>
                 </div>
                 <div className="flex items-center justify-between">
                   <p className="text-ink/80 font-medium text-[13px]">Support Line:</p>
-                  <small className="text-[12px] text-ink-muted"><a href="tel:+2348137825383">08137825383</a></small>
+                  <small className="text-[12px] text-ink-muted"><a href={`tel:${config?.contact?.supportPhone}`}>{config?.contact?.supportPhone}</a></small>
                 </div>
               </div>
             </div>
@@ -514,10 +515,10 @@ const Home = () => {
 
           <footer className="bg-card flex flex-col sm:flex-row items-center justify-between px-6 py-2.5">
             <small className="text-ink-muted hover:text-ink transition-all duration-1000 ease-in-out text-[12px]">
-              &copy; {new Date().getFullYear()} Kenneth Okoro
+              &copy; {new Date().getFullYear()} {config?.fullName}
             </small>
             <a href="mailto:mail@placeholder.com" className="text-ink-muted hover:text-ink transition-all duration-200 ease-in-out text-[12px]">
-              Kennethokoro280@gmail.com
+              {config?.contact.email}
             </a>
           </footer>
 
