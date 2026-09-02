@@ -40,20 +40,15 @@ const AdminLogin = () => {
     async function onSubmit(values) {
         const API_URL = import.meta.env.VITE_API_URL
         try {
-            // console.log(values)
-            console.log(`${API_URL}/auth/signin`)
             const response = await axios.post(`${API_URL}/auth/signin`, values)
-            console.log(response.data)
             const {message, success, data} = response.data
-            console.log(data.token)
             if(success){
                 localStorage.setItem("token", data.token)
                 toast.success(message)
                 navigate("/admin/dashboard", {replace:true})
             }
         } catch (error) {
-            console.error("Form submission error", error)
-            toast.error("Failed to submit the form. Please try again.")
+            toast.error(error.response.data.message ||"Failed to submit the form. Please try again." )
         }
     }
 
