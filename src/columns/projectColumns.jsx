@@ -9,7 +9,7 @@ export const projectColumns = ({ onEdit, onDelete }) => [
         accessorKey: "projectDesc",
         header: "Description",
         cell: ({ row }) => (
-            <div className="max-w-[300px] truncate">
+            <div className="max-w-75 truncate">
                 {row.original.projectDesc}
             </div>
         ),

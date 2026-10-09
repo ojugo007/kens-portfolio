@@ -3,13 +3,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import emailjs from '@emailjs/browser';
+import { useSendMessage } from "@/hooks/useMessages";
+
 
 import {
   Field,
   FieldLabel,
   FieldError,
 } from "@/components/ui/field";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -31,40 +32,56 @@ export default function ContactForm() {
       message: "",
     },
   });
-
-
-  const onSubmit = async ( values) => {
+  
+  
+  const onSubmit = async (values) => {
+    // Step 1: Save the message to your database
     try {
-      const response = await emailjs
-        .send(
-          import.meta.env.VITE_SERVICE_ID,
-          import.meta.env.VITE_TEMPLATE_ID,
-          {
-            from_name : values.name,
-            reply_to : values.email,
-            message : values.message
-          },
-           
-          import.meta.env.VITE_PUBLIC_KEY
-        )
+      await saveMessage({
+        name: values.name,
+        email: values.email,
+        message: values.message,
+      });
+    } catch (error) {
+      console.error("Database submission error:", error);
+      toast.error("Unable to submit your message. Please try again.");
+      return;
+    }
+    
+    // Step 2: Send the email notification
+    try {
+      const response = await emailjs.send(
+        import.meta.env.VITE_SERVICE_ID,
+        import.meta.env.VITE_TEMPLATE_ID,
+        {
+          from_name: values.name,
+          reply_to: values.email,
+          message: values.message,
+        },
+        import.meta.env.VITE_PUBLIC_KEY
+      );
 
-        if(response.status === 200){
-          toast.success("Form submitted successfully");
-          form.reset();          
-        }else {
-          toast.error("Something went wrong. Please try again.");
-          console.warn("Unexpected response:", response);
-        }
-
-        
-        // console.log(JSON.stringify(values, null, 2));
-        
-      } catch (error) {
-        console.error("Form submission error", error);
-        toast.error("Failed to submit the form. Please try again.");
+      if (response.status === 200) {
+        toast.success("Message sent successfully!");
+      } else {
+        toast.warning(
+          "Your message was saved, but the email notification may have failed."
+        );
       }
+
+      form.reset();
+    } catch (error) {
+      console.error("Email notification error:", error);
+      
+      toast.warning(
+        "Your message was saved, but the email notification could not be sent."
+      );
+      
+      form.reset();
+    }
   };
 
+  const { mutateAsync: saveMessage } = useSendMessage();
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}

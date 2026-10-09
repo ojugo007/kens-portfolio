@@ -9,7 +9,7 @@ import React, { useEffect, useState } from 'react'
 import { CountUp } from "use-count-up"
 import TypingText from "@/components/TypingText"
 import CardComponent from "@/components/CardComponent"
-import { services, stats, skills, roles, stack, slides, projects, EXPERIENCE, EDUCATION } from "@/constants/data"
+import { stats, skills, roles, slides, EXPERIENCE, EDUCATION } from "@/constants/data"
 import '../css/embla.css'
 import EmblaCarousel from '../components/EmblaCarousel'
 import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa"
@@ -27,6 +27,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { useClientConfig } from "@/hooks/useClientConfig"
+import { useProjects } from "@/hooks/useProjects"
+import { useServices } from "@/hooks/useServices"
+import { useStacks } from "@/hooks/useStacks"
+import { useExperience } from "@/hooks/useExperience"
+import { Skeleton } from "@/components/ui/skeleton"
+import { toast } from "sonner"
+import { useEducation } from "@/hooks/useEducation"
+import { useTestimonials } from "@/hooks/useTestimonials"
 
 
 const Home = () => {
@@ -36,14 +44,76 @@ const Home = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [selected, setSelected] = useState(null)
   const fullName = config.fullName
-  const [stackProgress, setStackProgress] = useState({
-    "airtable": 0, "n8n": 0, "zapier": 0, "postman": 0
-  })
+
+
+  const {
+    data: stacks,
+    isLoading: stacksLoading,
+    isError: stacksError,
+  } = useStacks();
+
+  const {
+    data: services,
+    isLoading: servicesLoading,
+    isError: servicesError,
+  } = useServices();
+
+  const {
+    data: projects,
+    isLoading: projectsLoading,
+    isError: projectsError,
+    error: projectsErrorData
+  } = useProjects();
+
+  const {
+    data: testimonials,
+    isLoading: testimonialLoading,
+    isError: testimonialError,
+    error: testimonialErrorData,
+  } = useTestimonials();
+
+  const {
+    data: workHistory,
+    isLoading: workHistoryLoading,
+    isError: workHistoryError,
+    error: workHistoryErrorData,
+  } = useExperience();
+
+  const {
+    data: educationHistory,
+    isLoading: educationLoading,
+    isError: educationError,
+    error: educationErrorData,
+  } = useEducation();
+
+  // experience sorted
+  const sortedExperience = (workHistory?.data ?? []).slice().sort((a, b) => a.order - b.order);
+
+  // education sorted
+  const sortedEducation = (educationHistory?.data ?? []).slice().sort((a, b) => a.order - b.order);
+
 
   useEffect(() => {
-    const timer = setTimeout(() => setStackProgress(stack), 500)
+    if (projectsError) {
+      toast.error(
+        projectsErrorData?.message || "Unable to load projects"
+      )
+    }
+  }, [projectsError, projectsErrorData])
+
+
+  const [showStackProgress, setShowStackProgress] = useState(false)
+
+  useEffect(() => {
+    if (!stacks?.data) return
+
+    const timer = setTimeout(() => {
+      setShowStackProgress(true)
+    }, 500)
+
     return () => clearTimeout(timer)
-  }, [])
+  }, [stacks])
+
 
   // Close sidebar on route-like anchor clicks on mobile
   const handleNavClick = () => {
@@ -117,15 +187,25 @@ const Home = () => {
               <Separator className="bg-edge my-4" />
 
               <div className="flex flex-col gap-5">
-                {Object.entries(stack).map(([key, value]) => (
-                  <div key={key}>
-                    <div className="flex items-center justify-between mb-1">
-                      <p className="text-[13px] capitalize">{key}</p>
-                      <small className="text-[12px] text-ink-muted">{value}%</small>
+                {stacksLoading || stacksError ? (
+                  Array.from({ length: 4 }).map((_, index) => (
+                    <Skeleton
+                      key={index}
+                      className="w-full h-1 rounded-none bg-card-alt"
+                    />
+                  ))
+                ) : (
+                  stacks?.data?.map((stack) => (
+                    <div key={stack._id}>
+                      <div className="flex items-center justify-between mb-1">
+                        <p className="text-[13px] capitalize">{stack.technology}</p>
+                        <small className="text-[12px] text-ink-muted">{stack.efficiency}%</small>
+                      </div>
+                      <Progress value={showStackProgress ? stack.efficiency : 0} className="max-w-full bg-card-alt flex-1 rounded-none" />
+
                     </div>
-                    <Progress value={stackProgress[key]} className="max-w-full bg-card-alt flex-1 rounded-none" />
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
               <Separator className="bg-edge my-4" />
 
@@ -236,17 +316,42 @@ const Home = () => {
           <section className="my-6 w-full">
             <h2 className="text-left mb-6">My Services</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-              {services.map((service, index) => (
-                <CardComponent key={index} title={service.title} desc={service.text} cta="Order Now" />
-              ))}
+              {servicesLoading || servicesError ? (
+                Array.from({ length: 6 }).map((_, index) => (
+                  <Skeleton
+                    key={index}
+                    className="w-full h-50 rounded-none bg-card-alt"
+                  />
+                ))
+              ) : (
+                services?.data.map((service) => (
+                  <CardComponent key={service._id} title={service.serviceType} desc={service.description} cta="Order Now" />
+                ))
+              )}
             </div>
           </section>
 
           {/* Recommendations */}
           <section className="my-6 w-full">
             <h3 className="text-left mb-6">Recommendations</h3>
+
             <div className="w-full">
-              <EmblaCarousel slides={slides} options={OPTIONS} />
+              {testimonialLoading ? (
+                <Skeleton className="w-full h-48 rounded-none bg-card-alt" />
+              ) : testimonialError ? (
+                <p className="text-sm text-ink-muted">
+                  Unable to load testimonials.
+                </p>
+              ) : !testimonials?.data?.length ? (
+                <p className="text-sm text-ink-muted">
+                  No recommendations available yet.
+                </p>
+              ) : (
+                <EmblaCarousel
+                  slides={testimonials.data}
+                  options={OPTIONS}
+                />
+              )}
             </div>
           </section>
 
@@ -254,148 +359,157 @@ const Home = () => {
           <section id="projects" className="my-6 w-full">
             <h4 className="text-left mb-6">Works</h4>
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-              {projects.map((project, index) => (
-                <div onClick={() => setSelected(project.id)} className="overflow-hidden relative transition-all group cursor-pointer h-50" key={index}>
-                  <img
-                    src={project.projectImage}
-                    alt={project.projectTitle}
-                    className={`w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 ${selected === project.id ? "scale-110" : ""} `}
+              {projectsLoading || projectsError ? (
+                Array.from({ length: 6 }).map((_, index) => (
+                  <Skeleton
+                    key={index}
+                    className="w-full h-50 rounded-none bg-card-alt"
                   />
-                  <div
-                    className={`absolute z-10 right-0 bottom-0 w-full bg-card/98 p-4 text-left
-      transform transition-transform duration-1000 ease-in-out ${selected === project.id ? "translate-y-0" : "translate-y-full"} group-hover:translate-y-0`}
-                  >
+                ))
+              ) : (
+                projects?.data?.slice().sort((a, b) => a.order - b.order).map((project) => (
+                  <div onClick={() => setSelected(project._id)} className="overflow-hidden relative transition-all group cursor-pointer h-50" key={project._id}>
+                    <img
+                      src={project.projectImage}
+                      alt={project.projectTitle}
+                      className={`w-full h-full object-cover transition-all duration-1000 group-hover:scale-110 ${selected === project._id ? "scale-110" : ""} `}
+                    />
+                    <div
+                      className={`absolute z-10 right-0 bottom-0 w-full bg-card/98 p-4 text-left
+      transform transition-transform duration-1000 ease-in-out ${selected === project._id ? "translate-y-0" : "translate-y-full"} group-hover:translate-y-0`}
+                    >
 
-                    <h5 className="text-[13px] text-ink/80 font-medium capitalize leading-4.5">{project.projectTitle}</h5>
-                    <p className="text-[12px] text-ink-muted leading-4.5">{project.projectDesc}</p>
+                      <h5 className="text-[13px] text-ink/80 font-medium capitalize leading-4.5">{project.projectTitle}</h5>
+                      <p className="text-[12px] text-ink-muted leading-4.5">{project.projectDesc}</p>
 
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <button className="cursor-pointer text-accent text-[10px] tracking-wider uppercase flex items-center gap-1.25 transition-all duration-500 ease-in-out hover:gap-2 mt-2.5">
-                          <span>Read More</span>
-                          <ChevronRight size={13} strokeWidth={4} />
-                        </button>
-                      </DialogTrigger>
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <button className="cursor-pointer text-accent text-[10px] tracking-wider uppercase flex items-center gap-1.25 transition-all duration-500 ease-in-out hover:gap-2 mt-2.5">
+                            <span>Read More</span>
+                            <ChevronRight size={13} strokeWidth={4} />
+                          </button>
+                        </DialogTrigger>
 
-                      <DialogContent className="w-[calc(100vw-2rem)] sm:w-full sm:max-w-md max-h-[85vh] h-[85vh] flex flex-col overflow-hidden p-0 rounded-none border-0 shadow-none ring-0 text-left bg-card gap-0">
+                        <DialogContent className="w-[calc(100vw-2rem)] sm:w-full sm:max-w-md max-h-[85vh] h-[85vh] flex flex-col overflow-hidden p-0 rounded-none border-0 shadow-none ring-0 text-left bg-card gap-0">
 
-                        {/* Banner image with title overlay */}
-                        <div className="relative w-full h-36 sm:h-44 shrink-0 overflow-hidden">
-                          <img
-                            src={project.projectImage}
-                            alt={project.projectTitle}
-                            className="w-full h-full object-cover"
-                          />
-                          <div
-                            className="absolute inset-0"
-                            style={{
-                              backgroundImage: `linear-gradient(to top, var(--bg-card), transparent)`,
-                            }}
-                          />
-                          <DialogHeader className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
-                            <span className="text-accent text-[10px] font-bold tracking-widest uppercase mb-1 block">
-                              Case Study
-                            </span>
-                            <DialogTitle>
-                              <h2 className="text-left text-[16px] sm:text-[18px] text-ink font-semibold capitalize leading-5.5">
-                                {project.projectTitle}
-                              </h2>
-                            </DialogTitle>
-                            <DialogDescription className="sr-only">
-                              {project.projectTitle} case study details
-                            </DialogDescription>
-                          </DialogHeader>
-                        </div>
-
-                        {/* Scrollable body */}
-                        <div className="overflow-y-auto themed-scrollbar min-h-0 flex-1 px-4 sm:px-6 py-6 flex flex-col gap-6">
-
-                          {/* Overview / Challenge / Solution — stacked, not a grid */}
-                          <div className="flex flex-col gap-3">
-                            <div className="bg-surface-alt p-4">
-                              <h3 className="text-[11px] font-bold tracking-widest uppercase text-accent mb-2">Overview</h3>
-                              <p className="text-[13px] text-ink-muted leading-5.5">{project.caseStudy.overview}</p>
-                            </div>
-                            <div className="bg-surface-alt p-4">
-                              <h3 className="text-[11px] font-bold tracking-widest uppercase text-accent mb-2">The Challenge</h3>
-                              <p className="text-[13px] text-ink-muted leading-5.5">{project.caseStudy.challenge}</p>
-                            </div>
-                            <div className="bg-surface-alt p-4">
-                              <h3 className="text-[11px] font-bold tracking-widest uppercase text-accent mb-2">The Solution</h3>
-                              <p className="text-[13px] text-ink-muted leading-5.5">{project.caseStudy.solution}</p>
-                            </div>
+                          {/* Banner image with title overlay */}
+                          <div className="relative w-full h-36 sm:h-44 shrink-0 overflow-hidden">
+                            <img
+                              src={project.projectImage}
+                              alt={project.projectTitle}
+                              className="w-full h-full object-cover"
+                            />
+                            <div
+                              className="absolute inset-0"
+                              style={{
+                                backgroundImage: `linear-gradient(to top, var(--bg-card), transparent)`,
+                              }}
+                            />
+                            <DialogHeader className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                              <span className="text-accent text-[10px] font-bold tracking-widest uppercase mb-1 block">
+                                Case Study
+                              </span>
+                              <DialogTitle>
+                                <h2 className="text-left text-[16px] sm:text-[18px] text-ink font-semibold capitalize leading-5.5">
+                                  {project.projectTitle}
+                                </h2>
+                              </DialogTitle>
+                              <DialogDescription className="sr-only">
+                                {project.projectTitle} case study details
+                              </DialogDescription>
+                            </DialogHeader>
                           </div>
 
-                          <Separator className="bg-edge" />
+                          {/* Scrollable body */}
+                          <div className="overflow-y-auto themed-scrollbar min-h-0 flex-1 px-4 sm:px-6 py-6 flex flex-col gap-6">
 
-                          {/* Workflow — timeline style */}
-                          <section>
-                            <h3 className="text-[13px] font-semibold text-ink/80 mb-4">Automation Workflow</h3>
-                            <div className="flex gap-3">
-                              <div className="flex flex-col items-center pt-1">
-                                {project.caseStudy.workflow.map((_, i) => (
-                                  <React.Fragment key={i}>
-                                    <div className="w-3 h-3 rounded-full border-2 border-accent bg-transparent shrink-0" />
-                                    {i < project.caseStudy.workflow.length - 1 && (
-                                      <div className="w-px flex-1 min-h-8 bg-edge" />
-                                    )}
-                                  </React.Fragment>
+                            {/* Overview / Challenge / Solution — stacked, not a grid */}
+                            <div className="flex flex-col gap-3">
+                              <div className="bg-surface-alt p-4">
+                                <h3 className="text-[11px] font-bold tracking-widest uppercase text-accent mb-2">Overview</h3>
+                                <p className="text-[13px] text-ink-muted leading-5.5">{project.caseStudy.overview}</p>
+                              </div>
+                              <div className="bg-surface-alt p-4">
+                                <h3 className="text-[11px] font-bold tracking-widest uppercase text-accent mb-2">The Challenge</h3>
+                                <p className="text-[13px] text-ink-muted leading-5.5">{project.caseStudy.challenge}</p>
+                              </div>
+                              <div className="bg-surface-alt p-4">
+                                <h3 className="text-[11px] font-bold tracking-widest uppercase text-accent mb-2">The Solution</h3>
+                                <p className="text-[13px] text-ink-muted leading-5.5">{project.caseStudy.solution}</p>
+                              </div>
+                            </div>
+
+                            <Separator className="bg-edge" />
+
+                            {/* Workflow — timeline style */}
+                            <section>
+                              <h3 className="text-[13px] font-semibold text-ink/80 mb-4">Automation Workflow</h3>
+                              <div className="flex gap-3">
+                                <div className="flex flex-col items-center pt-1">
+                                  {project.caseStudy.workflow.map((_, i) => (
+                                    <React.Fragment key={i}>
+                                      <div className="w-3 h-3 rounded-full border-2 border-accent bg-transparent shrink-0" />
+                                      {i < project.caseStudy.workflow.length - 1 && (
+                                        <div className="w-px flex-1 min-h-8 bg-edge" />
+                                      )}
+                                    </React.Fragment>
+                                  ))}
+                                </div>
+                                <ol className="flex-1 flex flex-col gap-4">
+                                  {project.caseStudy.workflow.map((step, index) => (
+                                    <li key={index} className="text-[13px] text-ink-muted leading-5.5 -mt-0.5">
+                                      {step}
+                                    </li>
+                                  ))}
+                                </ol>
+                              </div>
+                            </section>
+
+                            <Separator className="bg-edge" />
+
+                            {/* Technologies */}
+                            <section>
+                              <h3 className="text-[13px] font-semibold text-ink/80 mb-4">Technologies Used</h3>
+                              <div className="flex flex-wrap gap-2">
+                                {project.caseStudy.technologies.map((tech) => (
+                                  <span
+                                    key={tech}
+                                    className="bg-surface-alt text-ink-muted text-[11px] px-3 py-1.5 border border-edge"
+                                  >
+                                    {tech}
+                                  </span>
                                 ))}
                               </div>
-                              <ol className="flex-1 flex flex-col gap-4">
-                                {project.caseStudy.workflow.map((step, index) => (
-                                  <li key={index} className="text-[13px] text-ink-muted leading-5.5 -mt-0.5">
-                                    {step}
+                            </section>
+
+                            <Separator className="bg-edge" />
+
+                            {/* Results */}
+                            <section>
+                              <h3 className="text-[13px] font-semibold text-ink/80 mb-4">Results</h3>
+                              <ul className="flex flex-col gap-2">
+                                {project.caseStudy.results.map((result) => (
+                                  <li key={result} className="flex items-start gap-3 bg-card-alt p-3">
+                                    <CheckCircle2 className="mt-0.5 h-4 w-4 text-accent shrink-0" />
+                                    <span className="text-[13px] text-ink-muted leading-5.5">{result}</span>
                                   </li>
                                 ))}
-                              </ol>
-                            </div>
-                          </section>
+                              </ul>
+                            </section>
 
-                          <Separator className="bg-edge" />
+                            {/* Takeaway callout */}
+                            <section className="bg-surface-alt border-l-2 border-accent p-5">
+                              <h3 className="text-[11px] font-bold tracking-widest uppercase text-accent mb-2">Key Takeaway</h3>
+                              <p className="text-[13px] text-ink-muted leading-5.5">{project.caseStudy.takeaway}</p>
+                            </section>
 
-                          {/* Technologies */}
-                          <section>
-                            <h3 className="text-[13px] font-semibold text-ink/80 mb-4">Technologies Used</h3>
-                            <div className="flex flex-wrap gap-2">
-                              {project.caseStudy.technologies.map((tech) => (
-                                <span
-                                  key={tech}
-                                  className="bg-surface-alt text-ink-muted text-[11px] px-3 py-1.5 border border-edge"
-                                >
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
-                          </section>
-
-                          <Separator className="bg-edge" />
-
-                          {/* Results */}
-                          <section>
-                            <h3 className="text-[13px] font-semibold text-ink/80 mb-4">Results</h3>
-                            <ul className="flex flex-col gap-2">
-                              {project.caseStudy.results.map((result) => (
-                                <li key={result} className="flex items-start gap-3 bg-card-alt p-3">
-                                  <CheckCircle2 className="mt-0.5 h-4 w-4 text-accent shrink-0" />
-                                  <span className="text-[13px] text-ink-muted leading-5.5">{result}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </section>
-
-                          {/* Takeaway callout */}
-                          <section className="bg-surface-alt border-l-2 border-accent p-5">
-                            <h3 className="text-[11px] font-bold tracking-widest uppercase text-accent mb-2">Key Takeaway</h3>
-                            <p className="text-[13px] text-ink-muted leading-5.5">{project.caseStudy.takeaway}</p>
-                          </section>
-
-                        </div>
-                      </DialogContent>
-                    </Dialog>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </section>
 
@@ -405,66 +519,155 @@ const Home = () => {
 
               {/* Education */}
               <div className="flex-1">
-                <h3 className="text-left text-[16px] font-semibold mb-6 text-ink/80">Education</h3>
-                <div className="flex gap-3">
-                  <div className="flex-1 flex flex-col gap-4">
-                    {EDUCATION.map((e, i) => (
-                      <div key={i} className="bg-card p-5 flex flex-col gap-2">
-                        <div className="flex items-start justify-between gap-2 flex-wrap">
-                          <p className="text-[13px] text-ink/80 font-semibold leading-5">{e.school}</p>
-                          <span className="shrink-0 text-[10px] text-ink-muted bg-card-alt px-2.5 py-1 rounded-full">{e.period}</span>
+                <h3 className="text-left text-[16px] font-semibold mb-6 text-ink/80">
+                  Education
+                </h3>
+
+                {educationLoading ? (
+                  <div className="flex flex-col gap-4">
+                    {Array.from({ length: 3 }).map((_, i) => (
+                      <Skeleton
+                        key={i}
+                        className="w-full h-32 rounded-none bg-card-alt"
+                      />
+                    ))}
+                  </div>
+                ) : educationError ? (
+                  <p className="text-sm text-ink-muted">
+                    {educationErrorData?.message || "Unable to load education history."}
+                  </p>
+                ) : sortedEducation.length === 0 ? (
+                  <p className="text-sm text-ink-muted">
+                    No education history available.
+                  </p>
+                ) : (
+                  <div className="flex gap-3">
+                    <div className="flex-1 flex flex-col gap-4">
+                      {sortedEducation.map((e) => (
+                        <div key={e._id} className="bg-card p-5 flex flex-col gap-2">
+                          <div className="flex items-start justify-between gap-2 flex-wrap">
+                            <p className="text-[13px] text-ink/80 font-semibold leading-5">
+                              {e.institution}
+                            </p>
+
+                            <span className="shrink-0 text-[10px] text-ink-muted bg-card-alt px-2.5 py-1 rounded-full">
+                              {e.period}
+                            </span>
+                          </div>
+
+                          <p className="text-[12px] text-ink-muted italic text-left">
+                            {e.role}
+                          </p>
+
+                          <p className="text-[12px] text-ink-muted leading-4.5 text-left">
+                            {e.course}
+                          </p>
+
+                          {e.cta && (
+                            <a
+                              href={e.ctaUrl ?? "#"}
+                              className="mt-1 text-accent text-[10px] tracking-widest uppercase flex items-center gap-1 hover:gap-2 transition-all duration-300"
+                            >
+                              {e.cta}
+                              <ChevronRight size={11} strokeWidth={4} />
+                            </a>
+                          )}
                         </div>
-                        <p className="text-[12px] text-ink-muted italic text-left">{e.role}</p>
-                        <p className="text-[12px] text-ink-muted leading-4.5 text-left">{e.desc}</p>
-                        {e.cta && (
-                          <a href={e.ctaUrl ?? "#"} className="mt-1 text-accent text-[10px] tracking-widest uppercase flex items-center gap-1 hover:gap-2 transition-all duration-300">
-                            {e.cta}<ChevronRight size={11} strokeWidth={4} />
-                          </a>
-                        )}
-                      </div>
-                    ))}
+                      ))}
+                    </div>
+
+                    <div className="flex flex-col items-center pt-1">
+                      {sortedEducation.map((_, i) => (
+                        <React.Fragment key={sortedEducation[i]._id}>
+                          <div className="w-3 h-3 rounded-full border-2 border-accent bg-transparent shrink-0" />
+
+                          {i < sortedEducation.length - 1 && (
+                            <div className="w-px flex-1 min-h-25 bg-edge" />
+                          )}
+                        </React.Fragment>
+                      ))}
+                    </div>
                   </div>
-                  <div className="flex flex-col items-center pt-1">
-                    {EDUCATION.map((_, i) => (
-                      <React.Fragment key={i}>
-                        <div className="w-3 h-3 rounded-full border-2 border-accent bg-transparent shrink-0" />
-                        {i < EDUCATION.length - 1 && <div className="w-px flex-1 min-h-25 bg-edge" />}
-                      </React.Fragment>
-                    ))}
-                  </div>
-                </div>
+                )}
               </div>
 
               {/* Experience */}
               <div className="flex-1">
-                <h3 className="text-left text-[15px] font-semibold mb-6 text-ink/80">Work History</h3>
-                <div className="flex gap-3">
-                  <div className="flex flex-col items-center pt-1">
-                    {EXPERIENCE.map((_, i) => (
-                      <React.Fragment key={i}>
-                        <div className="w-3 h-3 rounded-full border-2 border-accent bg-transparent shrink-0" />
-                        {i < EXPERIENCE.length - 1 && <div className="w-px flex-1 min-h-25 bg-edge" />}
-                      </React.Fragment>
+                <h3 className="text-left text-[15px] font-semibold mb-6 text-ink/80">
+                  Work History
+                </h3>
+
+                {workHistoryLoading ? (
+                  <div className="flex flex-col gap-4">
+                    {Array.from({ length: 3 }).map((_, i) => (
+                      <Skeleton
+                        key={i}
+                        className="w-full h-32 rounded-none bg-card-alt"
+                      />
                     ))}
                   </div>
-                  <div className="flex-1 flex flex-col gap-4">
-                    {EXPERIENCE.map((e, i) => (
-                      <div key={i} className="bg-card p-5 flex flex-col gap-2">
-                        <div className="flex items-start justify-between gap-2 flex-wrap">
-                          <p className="text-[13px] text-ink/80 font-semibold leading-5">{e.company}</p>
-                          <span className="shrink-0 text-[10px] text-ink-muted bg-card-alt px-2.5 py-1 rounded-full">{e.period}</span>
+                ) : workHistoryError ? (
+                  <p className="text-sm text-ink-muted">
+                    {workHistoryErrorData?.message || "Unable to load work history."}
+                  </p>
+                ) : sortedExperience.length === 0 ? (
+                  <p className="text-sm text-ink-muted">
+                    No work history available.
+                  </p>
+                ) : (
+                  <div className="flex gap-3">
+                    {/* Timeline */}
+                    <div className="flex flex-col items-center pt-1">
+                      {sortedExperience.map((work, i) => (
+                        <React.Fragment key={work._id}>
+                          <div className="w-3 h-3 rounded-full border-2 border-accent bg-transparent shrink-0" />
+
+                          {i < sortedExperience.length - 1 && (
+                            <div className="w-px flex-1 min-h-25 bg-edge" />
+                          )}
+                        </React.Fragment>
+                      ))}
+                    </div>
+
+                    {/* Experience cards */}
+                    <div className="flex-1 flex flex-col gap-4">
+                      {sortedExperience.map((work) => (
+                        <div
+                          key={work._id}
+                          className="bg-card p-5 flex flex-col gap-2"
+                        >
+                          <div className="flex items-start justify-between gap-2 flex-wrap">
+                            <p className="text-[13px] text-ink/80 font-semibold leading-5">
+                              {work.company}
+                            </p>
+
+                            <span className="shrink-0 text-[10px] text-ink-muted bg-card-alt px-2.5 py-1 rounded-full">
+                              {work.period}
+                            </span>
+                          </div>
+
+                          <p className="text-[12px] text-ink-muted italic text-left">
+                            {work.role}
+                          </p>
+
+                          <p className="text-[12px] text-ink-muted leading-4.5 text-left">
+                            {work.desc}
+                          </p>
+
+                          {work.cta && (
+                            <a
+                              href={work.ctaUrl ?? "#"}
+                              className="mt-1 text-accent text-[10px] tracking-widest uppercase flex items-center gap-1 hover:gap-2 transition-all duration-300"
+                            >
+                              {work.cta}
+                              <ChevronRight size={11} strokeWidth={4} />
+                            </a>
+                          )}
                         </div>
-                        <p className="text-[12px] text-ink-muted italic text-left">{e.role}</p>
-                        <p className="text-[12px] text-ink-muted leading-4.5 text-left">{e.desc}</p>
-                        {e.cta && (
-                          <a href={e.ctaUrl ?? "#"} className="mt-1 text-accent text-[10px] tracking-widest uppercase flex items-center gap-1 hover:gap-2 transition-all duration-300">
-                            {e.cta}<ChevronRight size={11} strokeWidth={4} />
-                          </a>
-                        )}
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
             </div>

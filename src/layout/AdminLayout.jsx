@@ -84,13 +84,11 @@ const AdminLayout = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-
-        // Change this if you use a different token name
         window.location.href = "/admin/login";
     };
 
     return (
-        <div className="bg-base min-h-screen overflow-hidden">
+        <div className="bg-base h-full overflow-hidden">
             <main className="flex min-h-screen relative">
 
                 {/* Desktop spacer */}

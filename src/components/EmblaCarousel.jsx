@@ -14,7 +14,6 @@ import { Star } from 'lucide-react'
 const EmblaCarousel = (props) => {
     const { slides, options } = props
     const [emblaRef, emblaApi] = useEmblaCarousel(options)
-
     const { selectedIndex, scrollSnaps, onDotButtonClick } =
         useDotButton(emblaApi)
 

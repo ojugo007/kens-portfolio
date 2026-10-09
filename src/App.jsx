@@ -5,7 +5,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import AdminLogin from './pages/AdminLogin';
 import ProtectedRoute from './components/ProtectedRoute';
 import Dashboard from './pages/admin/Dashboard';
-import Stack from './pages/admin/Stack';
+import Stack from './pages/admin/Stacks';
 import Education from './pages/admin/Education';
 import Experience from './pages/admin/Experience';
 import Services from './pages/admin/Services';

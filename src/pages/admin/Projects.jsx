@@ -2,9 +2,8 @@ import { projectColumns } from "@/columns/projectColumns"
 import DataTable from "@/components/admin/DataTable"
 import ProjectForm from "@/components/admin/ProjectForm"
 import { Button } from "@/components/ui/button"
-import axios from "axios"
 import { Plus } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { toast } from "sonner"
 import {
     AlertDialog,
@@ -16,187 +15,119 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useProjects } from "@/hooks/useProjects"
+import { addProject, deleteProject, updateProject } from "@/api/projectsApi"
 
 const Projects = () => {
     const [formOpen, setFormOpen] = useState(false)
-    const [saving, setSaving] = useState(false)
-    const [projects, setProjects] = useState([])
-    const [loading, setLoading] = useState(true)
     const [selectedProject, setSelectedProject] = useState(null)
     const [selectedDeleteProject, setSelectedDeleteProject] = useState(null)
     const [deleteOpen, setDeleteOpen] = useState(false)
 
-    console.log("FORM STATE:", {
-        formOpen,
-        selectedProject
+    const queryClient = useQueryClient()
+
+    // gets projects
+    const { data, isLoading, isError } = useProjects()
+    const projects = data?.data ?? []
+
+    const addMutation = useMutation({
+        mutationFn: addProject,
+
+        onSuccess: (response) => {
+            if (response.success) {
+                toast.success(response.message)
+
+                setFormOpen(false)
+                setSelectedProject(null)
+
+                queryClient.invalidateQueries({
+                    queryKey: ["projects"],
+                })
+            }
+        },
+
+        onError: (error) => {
+            toast.error(
+                error.response?.data?.message || "Failed to add project"
+            )
+        },
     })
-    const API_URL = import.meta.env.VITE_API_URL
 
-    const getProjects = async () => {
-        try {
-            setLoading(true)
+    const updateMutation = useMutation({
+        mutationFn: updateProject,
 
-            const response = await axios.get(
-                `${API_URL}/project/`
-            )
-
-            setProjects(response.data.data || [])
-        } catch (error) {
-            console.error("Failed to fetch projects", error)
-        } finally {
-            setLoading(false)
-        }
-    }
-
-    useEffect(() => {
-        getProjects()
-    }, [])
-
-    // ADD
-    const handleAddProject = async (values) => {
-        try {
-            const token = localStorage.getItem("token")
-
-            setSaving(true)
-
-            const formData = new FormData()
-
-            formData.append("projectTitle", values.projectTitle)
-            formData.append("projectDesc", values.projectDesc)
-            formData.append("order", values.order)
-
-            if (values.projectImage?.[0]) {
-                formData.append(
-                    "projectImage",
-                    values.projectImage[0]
-                )
-            }
-
-            formData.append(
-                "caseStudy",
-                JSON.stringify(values.caseStudy)
-            )
-
-            const response = await axios.post(
-                `${API_URL}/project/new/add`,
-                formData,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            )
-
-            if (response.data.success) {
-                toast.success(response.data.message)
+        onSuccess: (response) => {
+            if (response.success) {
+                toast.success(response.message)
 
                 setFormOpen(false)
                 setSelectedProject(null)
 
-                await getProjects()
+                queryClient.invalidateQueries({
+                    queryKey: ["projects"],
+                })
             }
+        },
 
-        } catch (error) {
-            console.error(error)
+        onError: (error) => {
+                console.log("FULL ERROR:", error)
+    console.log("ERROR MESSAGE:", error.message)
+    console.log("ERROR RESPONSE:", error.response)
 
             toast.error(
-                error.response?.data?.message ||
-                "Failed to add project"
+                error.response?.data?.message || "Failed to update project"
             )
-        } finally {
-            setSaving(false)
-        }
-    }
+        },
+    })
 
-    // EDIT BUTTON CLICK
-    const handleEdit = (project) => {
-        setSelectedProject(project)
-        setFormOpen(true)
-    }
+    const deleteMutation = useMutation({
+        mutationFn: deleteProject,
 
-    // UPDATE
-    const handleUpdateProject = async (values) => {
-        try {
-            const token = localStorage.getItem("token")
-
-            setSaving(true)
-
-            const formData = new FormData()
-
-            formData.append("projectTitle", values.projectTitle)
-            formData.append("projectDesc", values.projectDesc)
-            formData.append("order", values.order)
-
-            if (values.projectImage?.[0]) {
-                formData.append(
-                    "projectImage",
-                    values.projectImage[0]
-                )
-            }
-
-            formData.append(
-                "caseStudy",
-                JSON.stringify(values.caseStudy)
-            )
-
-            const response = await axios.patch(
-                `${API_URL}/project/update/${selectedProject._id}`,
-                formData,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            )
-
-            if (response.data.success) {
-                toast.success(response.data.message)
+        onSuccess: (response) => {
+            if (response.success) {
+                toast.success(response.message)
 
                 setFormOpen(false)
                 setSelectedProject(null)
 
-                await getProjects()
+                queryClient.invalidateQueries({
+                    queryKey: ["projects"],
+                })
             }
+        },
 
-        } catch (error) {
-            console.error(error)
-
+        onError: (error) => {
             toast.error(
-                error.response?.data?.message ||
-                "Failed to update project"
+                error.response?.data?.message || "Failed to delete project"
             )
-        } finally {
-            setSaving(false)
+        },
+    })
+
+    const handleDeleteProject = () => {
+        deleteMutation.mutate(selectedDeleteProject._id)
+    }
+
+    const handleSubmit = (values) => {
+        if (selectedProject) {
+            updateMutation.mutate({
+                id: selectedProject._id,
+                values,
+            })
+        } else {
+            addMutation.mutate(values)
         }
     }
 
-    const handleDeleteProject = async (id) => {
-        const token = localStorage.getItem("token")
-        try {
-            const response = await axios.delete(`${API_URL}/project/delete/${id}`,
-                {
-                    headers: {
-                        "Authorization": `Bearer ${token}`
-                    }
-                }
-            )
-            const { message, success } = response.data
-            if (success) {
-                toast.success(message)
-                await getProjects()
-            }
-        } catch (error) {
-
-            toast.error(
-                error.response?.data?.message ||
-                "Failed to delete project"
-            )
-        }
-    }
     // DELETE
     const handleDelete = (project) => {
         setSelectedDeleteProject(project)
         setDeleteOpen(true)
+    }
+    // EDIT BUTTON CLICK
+    const handleEdit = (project) => {
+        setSelectedProject(project)
+        setFormOpen(true)
     }
 
     const columns = projectColumns({
@@ -205,9 +136,9 @@ const Projects = () => {
     })
 
     return (
-        <section className="w-full">
+        <section className="w-full h-full">
 
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-6 text-left ">
 
                 <div>
                     <h1 className="text-xl font-semibold text-ink">
@@ -224,12 +155,11 @@ const Projects = () => {
                     open={formOpen}
                     onOpenChange={setFormOpen}
                     project={selectedProject}
-                    onSubmit={
-                        selectedProject
-                            ? handleUpdateProject
-                            : handleAddProject
+                    onSubmit={handleSubmit}
+                    loading={
+                        addMutation.isPending ||
+                        updateMutation.isPending
                     }
-                    loading={saving}
                 />
 
                 {/* ADD BUTTON */}
@@ -274,31 +204,30 @@ const Projects = () => {
                         >
                             Cancel
                         </AlertDialogCancel>
-
                         <AlertDialogAction
+                            disabled={deleteMutation.isPending}
                             className="rounded-none bg-red-600 text-white hover:bg-red-700 text-[11px]"
-                            onClick={() => {
-                                handleDeleteProject(
-                                    selectedDeleteProject._id
-                                )
-                            }}
+                            onClick={handleDeleteProject}
                         >
-                            Delete
+                            {deleteMutation.isPending ? "Deleting..." : "Delete"}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
             </AlertDialog>
-            {loading ? (
+            {isError ? (
+                <div className="h-40 flex items-center justify-center">
+                    <p className="text-[12px] text-red-500">
+                        Failed to load projects.
+                    </p>
+                </div>
+            ) : isLoading ? (
                 <div className="h-40 flex items-center justify-center">
                     <p className="text-[12px] text-ink-muted">
                         Loading projects...
                     </p>
                 </div>
             ) : (
-                <DataTable
-                    columns={columns}
-                    data={projects}
-                />
+                <DataTable columns={columns} data={projects} />
             )}
 
         </section>
