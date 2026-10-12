@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import  {getStacks}  from "../api/stackApi"
+import  {getStacks}  from "@/api/stackApi"
 
 export const useStacks = () => {
   return useQuery({

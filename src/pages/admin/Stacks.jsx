@@ -18,19 +18,15 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
-
 import DataTable from "@/components/admin/DataTable"
 import StackForm from "@/components/admin/StackForm"
-
 import { stackColumns } from "@/columns/stackColumns"
-
 import { useStacks } from "@/hooks/useStacks"
-
 import {
   addStack,
   updateStack,
   deleteStack,
-} from "../../api/stackApi"
+} from "@/api/stackApi"
 
 const Stacks = () => {
   const queryClient = useQueryClient()
