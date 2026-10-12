@@ -1,6 +1,6 @@
 import { useState } from "react"
-
-import  DataTable  from "@/components/admin/DataTable"
+import ReplyComposer from "@/components/admin/ReplyComposer"
+import DataTable from "@/components/admin/DataTable"
 import { messageColumns } from "@/columns/messageColumns"
 
 import {
@@ -250,22 +250,10 @@ const Messages = () => {
                 )}
               </div>
 
-              {/* Reply section will be added in Stage 3 */}
+              {/* Reply section */}
+
               {!message.replied && (
-                <div className="border-t border-edge pt-5">
-                  <Button
-                    type="button"
-                    className="
-                      rounded-none
-                      bg-accent
-                      text-[#382400]
-                      text-[11px]
-                      hover:bg-accent/90
-                    "
-                  >
-                    GENERATE AI RESPONSE
-                  </Button>
-                </div>
+                <ReplyComposer messageId={message._id} />
               )}
             </div>
           )}

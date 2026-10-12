@@ -33,8 +33,10 @@ export const getMessage = async (id) => {
 export const generateMessage = async (id) => {
   const response = await axios.post(
     `${API_URL}/message/generate-response/${id}`,
+    {},
     {headers: authHeaders()}
   )
+  console.log(response.data.data.reply)
   return response.data
 }
 
