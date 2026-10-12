@@ -204,17 +204,17 @@ const Stacks = () => {
         open={deleteOpen}
         onOpenChange={setDeleteOpen}
       >
-        <AlertDialogContent>
+        <AlertDialogContent className="rounded-none bg-card border-edge">
           <AlertDialogHeader>
-            <AlertDialogTitle>
+            <AlertDialogTitle className="text-[15px]">
               Delete stack?
             </AlertDialogTitle>
 
-            <AlertDialogDescription>
+            <AlertDialogDescription className="text-[12px] text-ink-muted">
               This will permanently delete{" "}
-              <strong>
+              <span className="font-semibold text-ink">
                 {selectedDeleteStack?.technology}
-              </strong>
+              </span>
               . This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
