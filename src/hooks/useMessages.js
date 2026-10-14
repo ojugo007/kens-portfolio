@@ -67,3 +67,21 @@ export const useDeleteMessage = () => {
     },
   })
 }
+
+export const useUnreadCount = () => {
+  const query = useQuery({
+    queryKey: ["messages"],
+    queryFn: getMessages,
+    staleTime: 1000 * 60 * 5,
+    refetchInterval: 1000 * 60,
+  })
+
+  const messages = query.data?.data ?? []
+
+  return {
+    unread: messages.filter((m) => !m.replied).length,
+    total: messages.length,
+    isLoading: query.isLoading,
+    isError: query.isError,
+  }
+}

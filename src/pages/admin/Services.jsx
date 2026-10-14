@@ -1,7 +1,8 @@
 import ServiceForm from '@/components/admin/ServiceForm'
 import { Button } from '@/components/ui/button'
 import { Plus } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
 import { toast } from "sonner"
 import {
   AlertDialog,
@@ -32,7 +33,15 @@ const Services = () => {
   const { data, isLoading, isError } = useServices()
   const services = data?.data ?? []
 
+  const [searchParams, setSearchParams] = useSearchParams()
 
+  useEffect(() => {
+    if (searchParams.get("new") === "true") {
+      handleAdd()
+      setSearchParams({}, { replace: true })
+    }
+  }, [])
+  
   const addMutation = useMutation({
     mutationFn: addService,
 
@@ -118,6 +127,10 @@ const Services = () => {
   }
 
 
+  const handleAdd = () => {
+    setSelectedService(null)
+    setFormOpen(true)
+  }
   const handleEdit = (service) => {
     setSelectedService(service)
     setFormOpen(true)

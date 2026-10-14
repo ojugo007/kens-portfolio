@@ -31,14 +31,11 @@ import {
 import { Button } from "@/components/ui/button"
 
 const Messages = () => {
-  const [selectedMessage, setSelectedMessage] =
-    useState(null)
+  const [selectedMessage, setSelectedMessage] = useState(null)
 
-  const [detailsOpen, setDetailsOpen] =
-    useState(false)
+  const [detailsOpen, setDetailsOpen] = useState(false)
 
-  const [deleteOpen, setDeleteOpen] =
-    useState(false)
+  const [deleteOpen, setDeleteOpen] = useState(false)
 
   const {
     data,

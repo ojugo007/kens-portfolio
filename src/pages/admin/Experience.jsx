@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
 import { Plus } from "lucide-react"
 import { toast } from "sonner"
 import {
@@ -42,6 +43,16 @@ const Experience = () => {
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [selectedDeleteExperience, setSelectedDeleteExperience] = useState(null)
 
+// to activate dialog with add form from dashboard page 
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    if (searchParams.get("new") === "true") {
+      handleAdd() 
+      setSearchParams({}, { replace: true }) 
+    }
+  }, [])
+  
   const addMutation = useMutation({
     mutationFn: addExperience,
 

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
 import DataTable from "@/components/admin/DataTable";
 import TestimonialForm from "@/components/admin/TestimonialForm";
 import { testimonialColumns } from "@/columns/testimonialColumns";
@@ -26,9 +27,18 @@ const Testimonials = () => {
     useState(null)
 
   const [deleteOpen, setDeleteOpen] = useState(false)
-  const [selectedDeleteTestimonial, setSelectedDeleteTestimonial] =
-    useState(null)
+  const [selectedDeleteTestimonial, setSelectedDeleteTestimonial] = useState(null)
 
+  // to activate dialog with add form from dashboard page 
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    if (searchParams.get("new") === "true") {
+      handleAdd() 
+      setSearchParams({}, { replace: true }) 
+    }
+  }, [])
+  
   const {
     data,
     isLoading,
@@ -53,6 +63,12 @@ const Testimonials = () => {
 
     setFormOpen(false)
     setSelectedTestimonial(null)
+  }
+
+
+  const handleAdd = () => {
+    setSelectedTestimonial(null)
+    setFormOpen(true)
   }
 
   const handleEdit = (testimonial) => {

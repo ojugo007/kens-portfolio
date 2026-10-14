@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
 import { Plus } from "lucide-react"
 import { toast } from "sonner"
 import {
@@ -35,7 +36,7 @@ import EducationForm from "@/components/admin/EducationForm"
 
 const Education = () => {
   const queryClient = useQueryClient()
-  const {data, isLoading, isError} = useEducation()
+  const { data, isLoading, isError } = useEducation()
   const education = data?.data ?? []
 
   const [formOpen, setFormOpen] = useState(false)
@@ -43,6 +44,16 @@ const Education = () => {
 
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [selectedDeleteEducation, setSelectedDeleteEducation] = useState(null)
+
+// to activate dialog with add form from dashboard page 
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    if (searchParams.get("new") === "true") {
+      handleAdd() 
+      setSearchParams({}, { replace: true }) 
+    }
+  }, [])
 
   const addMutation = useMutation({
     mutationFn: addEducation,

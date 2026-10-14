@@ -26,6 +26,7 @@ import { useTheme } from "../context/ThemeContext";
 import { Switch } from "@/components/ui/switch";
 import { useClientConfig } from "@/hooks/useClientConfig";
 import { NameInnitial } from "@/lib/utils";
+import NotificationBell from "@/components/admin/NotificationBell";
 
 const AdminLayout = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -88,7 +89,7 @@ const AdminLayout = () => {
     };
 
     return (
-        <div className="bg-base h-full overflow-hidden">
+        <div className="bg-base h-full overflow-y-auto scrollbar-hide">
             <main className="flex min-h-screen relative">
 
                 {/* Desktop spacer */}
@@ -114,10 +115,9 @@ const AdminLayout = () => {
                         lg:h-[calc(100vh-30px)]
                         lg:translate-x-0
 
-                        ${
-                            sidebarOpen
-                                ? "translate-x-0"
-                                : "-translate-x-full lg:translate-x-0"
+                        ${sidebarOpen
+                            ? "translate-x-0"
+                            : "-translate-x-full lg:translate-x-0"
                         }
                     `}
                 >
@@ -134,12 +134,18 @@ const AdminLayout = () => {
                         </button>
 
                         {/* Theme switch */}
-                        <Switch
-                            checked={dark === "dark"}
-                            onCheckedChange={(checked) =>
-                                setDark(checked ? "dark" : "light")
-                            }
-                        />
+                        <div className="flex items-center justify-between">
+                            <Switch
+                                checked={dark === "dark"}
+                                onCheckedChange={(checked) =>
+                                    setDark(checked ? "dark" : "light")
+                                }
+                            />
+                            <div className="hidden lg:block">
+                                <NotificationBell />
+                            </div>
+
+                        </div>
 
                         <Avatar size="lg" className="mx-auto mt-4">
                             <AvatarImage src={config?.avatarUrl} />
@@ -185,10 +191,9 @@ const AdminLayout = () => {
                                             transition-all duration-300
                                             border-l-2
 
-                                            ${
-                                                isActive
-                                                    ? "bg-card text-accent border-accent"
-                                                    : "text-ink-muted border-transparent hover:bg-card hover:text-ink"
+                                            ${isActive
+                                                ? "bg-card text-accent border-accent"
+                                                : "text-ink-muted border-transparent hover:bg-card hover:text-ink"
                                             }
                                             `
                                         }
@@ -241,27 +246,23 @@ const AdminLayout = () => {
                 <div className="w-full flex-1 z-10 p-4 lg:p-6.5 text-ink min-h-screen overflow-x-hidden">
 
                     {/* Mobile top bar */}
-                    <div className="
-                        lg:hidden
-                        flex items-center justify-between
-                        mb-4
-                        bg-surface
-                        px-4 py-3
-                        -mx-4 -mt-4
-                    ">
-
-                        <button
-                            onClick={() => setSidebarOpen(true)}
-                            className="text-ink-muted hover:text-ink"
-                        >
-                            <Menu size={22} />
-                        </button>
+                    <div className="lg:hidden flex items-center justify-between mb-4 bg-surface px-4 py-3 -mx-4 -mt-4">
+                        <div className="w-8 flex justify-start">
+                            <button
+                                onClick={() => setSidebarOpen(true)}
+                                className="text-ink-muted hover:text-ink"
+                            >
+                                <Menu size={22} />
+                            </button>
+                        </div>
 
                         <span className="text-ink text-[14px] font-semibold">
                             Admin Panel
                         </span>
 
-                        <div className="w-6" />
+                        <div className="w-8 flex justify-end">
+                            <NotificationBell />
+                        </div>
                     </div>
 
                     {/* Child page renders here */}

@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
 import { Plus } from "lucide-react"
 import { toast } from "sonner"
 import {
@@ -42,9 +43,16 @@ const Stacks = () => {
   const [selectedStack, setSelectedStack] = useState(null)
 
   const [deleteOpen, setDeleteOpen] = useState(false)
-  const [selectedDeleteStack, setSelectedDeleteStack] =
-    useState(null)
-
+  const [selectedDeleteStack, setSelectedDeleteStack] = useState(null)
+  const [searchParams, setSearchParams] = useSearchParams()
+  
+  useEffect(() => {
+  if (searchParams.get("new") === "true") {
+    handleAdd()
+    setSearchParams({}, { replace: true })
+  }
+}, []) 
+  
   const addMutation = useMutation({
     mutationFn: addStack,
 

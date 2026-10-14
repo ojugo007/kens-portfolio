@@ -3,7 +3,8 @@ import DataTable from "@/components/admin/DataTable"
 import ProjectForm from "@/components/admin/ProjectForm"
 import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useSearchParams } from "react-router-dom"
 import { toast } from "sonner"
 import {
     AlertDialog,
@@ -30,6 +31,16 @@ const Projects = () => {
     // gets projects
     const { data, isLoading, isError } = useProjects()
     const projects = data?.data ?? []
+
+    // to activate dialog with add form from dashboard page 
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  useEffect(() => {
+    if (searchParams.get("new") === "true") {
+      handleAdd() 
+      setSearchParams({}, { replace: true }) 
+    }
+  }, [])
 
     const addMutation = useMutation({
         mutationFn: addProject,
@@ -119,6 +130,11 @@ const Projects = () => {
         }
     }
 
+    const handleAdd = () => {
+        setSelectedProject(null)
+        setFormOpen(true)
+    }
+    
     // DELETE
     const handleDelete = (project) => {
         setSelectedDeleteProject(project)
